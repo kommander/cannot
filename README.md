@@ -35,6 +35,12 @@ An exception can be created from calling `Cannot()` as a function, or by calling
 When using `Cannot()` standalone with default configuration, it tried to grab the object which `could not` perform an action from the stack trace.
 Using the `Object#cannot` API extension though obviously has an object which `could not`.
 
+## Running the tests
+	
+	$ make test  
+
+Will run `npm install` to make sure dev dependencies are installed and then run the tests using [mocha](http://visionmedia.github.io/mocha/).
+
 ## License
 
 (The MIT License)

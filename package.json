@@ -1,0 +1,17 @@
+{   "name": "cannot"
+  , "description": "Easy and fun error handling, by enforcing human readable messages without compromising machine processing ability."
+  , "version": "0.1.0"
+  , "author": "Sebastian Herrlinger <sebastian@kosmokommando.com>"
+  , "license" : "MIT"
+  , "repository": { "type": "git", "url": "https://github.com/kommander/cannot.js.git" }
+  , "homepage": "https://github.com/kommander/cannot.js"
+  , "devDependencies": {
+      "mocha": "*",
+      "expect.js": "*",
+      "should": "*",
+      "sinon": "*"
+  }
+  , "keywords": ["error", "handling", "human", "readable", "error message"]
+  , "main": "./lib/cannot.js"
+  , "engines": { "node": ">= 0.6.0" }
+}

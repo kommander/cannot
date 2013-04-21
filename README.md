@@ -2,7 +2,9 @@ cannot.js
 =========
 
 Easy and fun error handling, by enforcing human readable messages without compromising machine processing ability.
-
+  
+[![Build Status](https://travis-ci.org/kommander/cannot.js.png)](https://travis-ci.org/kommander/cannot.js)  
+  
 ## Example
 
 ```javascript  

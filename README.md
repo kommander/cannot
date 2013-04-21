@@ -82,11 +82,11 @@ function Database(…){
 }
 Database.prototype.__proto__ = EventEmitter.prototype;
 
-db.on("error", function(err){
-  // err -> "Database cannot load User because connection was lost"
-});
-
 var db = new Database();
+
+db.on("error", function(err){
+  // err -> "Database cannot load User. (No reason)"
+});
 
 db.cannot('load', 'User');
 ```

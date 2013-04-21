@@ -59,7 +59,8 @@ describe('Cannot Exception', function(){
       expect(err).to.be.an('object');
       expect(err).to.have.property('code', 'cannot_load_something');
       expect(err).to.have.property('subject', 'something');
-      expect(err).to.have.property('message', 'Context.<anonymous> could not load something at cannot.test.js on line 54. (No reason)');
+      var messageTest = err.message.match(/.*[\s]{1}could not load something at cannot.test.js on line\s[0-9]{1,5}\. \(No reason\)/ig);
+      expect(messageTest).to.be.ok();
     });
   });
   
@@ -77,12 +78,13 @@ describe('Cannot Exception', function(){
       );
 
       expect(err).to.be.an('object');
-      expect(err).to.have.property('message', 'Context.<anonymous> could not load something at cannot.test.js on line 73, because there is nothing to load.');
+      var messageTest = err.message.match(/.*[\s]{1}could not load something at cannot.test.js on line\s[0-9]{1,5}, because there is nothing to load./ig);
+      expect(messageTest).to.be.ok();
     });
 
     //
     //
-    it('Should include parentError into the message', function(){
+    it('Should include reason into the message', function(){
       
       var err = Cannot(
         'load',
@@ -96,7 +98,8 @@ describe('Cannot Exception', function(){
       expect(err).to.be.an('object');
       expect(err).to.have.property('code', 'cannot_load_something');
       expect(err).to.have.property('subject', 'something');
-      expect(err).to.have.property('message', 'Context.<anonymous> could not load something at cannot.test.js on line 87, because fakeParent.');
+      var messageTest = err.message.match(/.*[\s]{1}could not load something at cannot.test.js on line\s[0-9]{1,5}, because fakeParent./ig);
+      expect(messageTest).to.be.ok();
     });
 
     //
@@ -119,7 +122,8 @@ describe('Cannot Exception', function(){
       expect(err).to.be.an('object');
       expect(err).to.have.property('code', 'cannot_load_something');
       expect(err).to.have.property('subject', 'something');
-      expect(err).to.have.property('message', 'Context.<anonymous> could not load something at cannot.test.js on line 106\n    because Context.<anonymous> could not connect to internet at cannot.test.js on line 109, because ground_zero.');
+      var messageTest = err.message.match(/.*[\s]{1}could not load something at cannot.test.js on line\s[0-9]{1,5}\n[\s]{1,8}because .*[\s]{1}could not connect to internet at cannot.test.js on line\s[0-9]{1,5}, because ground_zero./ig);
+      expect(messageTest).to.be.ok();
     });
 
 

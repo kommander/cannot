@@ -16,5 +16,5 @@
   }
   , "keywords": ["error", "handling", "human", "readable", "error message"]
   , "main": "./lib/cannot.js"
-  , "engines": { "node": ">= 0.10.0" }
+  , "engines": { "node": ">= 0.8.0" }
 }

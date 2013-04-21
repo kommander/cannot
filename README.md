@@ -29,6 +29,10 @@ var err = db.cannot('load', 'User').because('connection was lost');
 // err.context       -> {Object} db
 ```
 
+## Installation  
+
+	$ npm install cannot
+
 ## Introduction
 `Cannot.js` follows a very simple syntax. It makes you think about what really went wrong and helps you to avoid inconsistent error codes. 
 

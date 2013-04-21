@@ -9,6 +9,7 @@ Easy and fun error handling, by enforcing human readable messages without compro
 var err = Alice.cannot('attend', 'the party').because('she fell into a rabbit hole');  
 // err.message       -> {String} "Alice could not attend the party, because she fell into a rabbit hole."  
 // err.object        -> {String} "Alice"  
+// err.code          -> {String} "cannot_attend_the_party"  
 // err.action        -> {String} "attend"  
 // err.subject       -> {String} "the_party"  
 // err.reason        -> {String} "she_fell_into_a_rabbit_hole"
@@ -23,6 +24,7 @@ var db = new Database();
 var err = db.cannot('load', 'User').because('connection was lost');
 // err.message       -> {String} "Database could not load User, because connection was lost."  
 // err.object        -> {String} "Database"  
+// err.code          -> {String} "cannot_load_user"  
 // err.action        -> {String} "load"  
 // err.subject       -> {String} "user"  
 // err.reason        -> {String} "connection_was_lost"

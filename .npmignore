@@ -5,3 +5,4 @@ test
 *.sublime-workspace
 .DS_Store
 ._*
+Makefile

@@ -121,7 +121,7 @@ db.cannot('save', 'Profile');
 // TODO
 
 ## Creating Errors
-An exception can be created from calling `Cannot()` as a function, or by calling `Object#cannot()`, which both will return a `Cannot` instance. A `Cannot` instance can also be thrown`.  
+An exception can be created from calling `Cannot()` as a function, or by calling `Object#cannot()`, which both will return a `Cannot` instance. A `Cannot` instance can also be `thrown`.  
 When using `Cannot()` standalone with default configuration, it tries to grab the object which `could not` perform an action from the stack trace.
 Using the `Object#cannot` API extension though obviously has an object which `could not`.
 

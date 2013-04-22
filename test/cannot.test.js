@@ -226,6 +226,30 @@ describe('Cannot Exception', function(){
 
     //
     // 
+    it('should be able to hook into', function(done){
+
+      // Example hook to loose api for q promises
+      Cannot.createHook(function(){
+        if(this.context && this.context.reject){
+          this.context.reject(this);
+        }
+      });
+
+      function Alice(){}
+      Alice.prototype.reject = function(err) {
+        expect(err).to.have.property('object', 'Alice');
+        expect(err).to.have.property('action', 'fly_into');
+        expect(err).to.have.property('subject', 'the_sky');
+        done();
+      };
+      
+      var alice = new Alice();
+      alice.cannot('fly into', 'the sky', 'she is out of mushrooms');
+
+    });
+
+    //
+    // 
     it('should be catchable on the object instance', function(done){
 
       function Alice(){}

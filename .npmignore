@@ -6,3 +6,4 @@ test
 .DS_Store
 ._*
 Makefile
+dev

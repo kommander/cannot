@@ -392,7 +392,14 @@ describe('Cannot Exception', function(){
 
     //
     // 
-    it('should emit an error event if the object extends the EventEmitter', function(done){
+    it('should emit an error event if with an event emitter hook', function(done){
+
+      Cannot.createHook(function(){
+       // Emit error event if wanted
+        if(this.context && this.context instanceof EventEmitter){
+          this.context.emit('error', this);
+        }
+      });
 
       function Alice(){}
       Alice.prototype.__proto__ = EventEmitter.prototype;

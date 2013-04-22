@@ -75,8 +75,19 @@ db1.cannot('load', 'User');
 db2.cannot('load', 'User');
 ```
 
-### Emit an 'error' event for EventEmitters
-When creating a `Cannot` error directly from an object with `Object#cannot` an "error" event is emitted, assuming the object is an EventEmitter.
+### Emit an 'error' event 
+With a `createHook` we can extend the behaviour of the error handling. By specifying the following hook we can emit an "error" event directly on the object, if it is an EventEmitter.
+
+```javascript
+Cannot.createHook(function(){
+  // Emit error event
+  if(this.context && this.context instanceof EventEmitter){
+    this.context.emit('error', this);
+  }
+});
+```
+
+Now we can use existing error listeners or classic event handling for errors:
 
 ```javascript  
 function Database(…){

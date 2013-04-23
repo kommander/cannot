@@ -134,7 +134,26 @@ db.cannot('save', 'Profile');
 ```
 
 ## Stacking Errors
-// TODO
+`Cannot` instances can be stacked onto each other by handing them over as a reason to the next error.
+
+```javascript
+var err1 = Cannot('do', 'what I should do');
+var err2 = Cannot('do', 'what I should do').because(err1);
+var err3 = Cannot('do', 'what I should do').because(err2);
+
+console.log(err3.message);
+```
+
+This should produce the following output:  
+<pre>
+I could not do what I should do
+    because I could not do what I should do
+    because I could not do what I should do. (No reason)
+</pre>  
+
+Note: This output can be achieved by setting `Cannot.stackActive` to `false`, otherwise it would include stack information in the message, which is activated by default.
+
+For more information on stacking errors, have a look at the [examples](https://github.com/kommander/cannot.js/tree/master/examples)
 
 ## Reasons
 // TODO

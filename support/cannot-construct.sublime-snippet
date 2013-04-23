@@ -1,0 +1,7 @@
+<snippet>
+	<content><![CDATA[
+Cannot('${1:perform action}', '${2:on subject}').because('${3:reason}')
+]]></content>
+	<tabTrigger>Cannot</tabTrigger>
+	<scope>source.js</scope>
+</snippet>

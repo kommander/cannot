@@ -45,6 +45,9 @@ var err = db.cannot('load', 'User').because('connection was lost');
 The generated message aims to be as user friendly as possible, without you having to write it manually. All error specific data which you need to handle it elsewhere in your application, is derived from your simple specification.  
 The `because` api helps you to specify a reason, which allows you to pass on error objects as well.
 
+### Code Editor Snippets
+The package includes auto completion snippets for _Sublime Text 2_ to support the _Cannot.js_ paradigm.
+
 ## Inform  
 With `cannot.js` an object and even its constructor can `inform` you whenever it `cannot` perform and action.
 You can listen on any object with the `Object#inform` method for failures.
@@ -156,10 +159,18 @@ Note: This output can be achieved by setting `Cannot.stackActive` to `false`, ot
 For more information on stacking errors, have a look at the [examples](https://github.com/kommander/cannot.js/tree/master/examples)
 
 ## Reasons
-// TODO
+Throwing errors without a reason doesn't make sense, does it? So  the majority of errors have a reason which is known, like "because the database had a hiccup" or "the network was down". _Cannot_ errors support _reasons_ to make handling them easier then reacting to a single error code of "user_loading_failed" or "connection_failure". _Cannot_ errors gently remind you that there mostly is a reason for the error, by adding "(No reason)" to the error message, if no reason is given. 
+
+## Enforcing Error Handling
+Errors should be handled and never ever be silently dropped. Most errors can be recovered from, which makes the overall user experience better and the application more stable as it becomes self sufficient. This approach supports a _Self Healing Architecture_, in which the application can _reason_ about what happened and react accordingly.
+
+To support this, _cannot.js_ considers newly created errors as _unhandled_ and expects them to be handled in time, otherwise it will throw the error. This allows us to discover unhandled errors earlier and helps preventing errors from being dropped silently.
+
+Currently, _cannot.js_ gives an error a certain amount of time to be handled, which defaults to _3 seconds_.  
+An error is considered _handled_ whenever a major attribute of it is used (code, action, subject, reason, message). Future versions might withdraw the auto-handling and force you to mark errors as handled explicitly to avoid it being thrown.
 
 ## Creating Errors
-An exception can be created from calling `Cannot()` as a function, or by calling `Object#cannot()`, which both will return a `Cannot` instance. A `Cannot` instance can also be `thrown`.  
+An error can be created from calling `Cannot()` as a function, or by calling `Object#cannot()`, which both will return a `Cannot` instance. A `Cannot` instance can also be `thrown`.  
 When using `Cannot()` standalone with default configuration, it tries to grab the object which `could not` perform an action from the stack trace.
 Using the `Object#cannot` API extension though obviously has an object which `could not`.
 

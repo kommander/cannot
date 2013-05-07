@@ -129,6 +129,32 @@ describe('Cannot Exception', function(){
     });
 
 
+    //
+    //
+    it('Should handle stacked exceptions (using because helper)', function(){
+      
+      var err = Cannot(
+        'load',
+        'something'
+      ).because(
+        Cannot(
+          'connect',
+          'to internet',
+          {
+            code: 'ground_zero',
+            message: 'went wrong, omg!'
+          }
+        )
+      );
+
+      expect(err).to.be.an('object');
+      expect(err).to.have.property('code', 'cannot_load_something');
+      expect(err).to.have.property('subject', 'something');
+      var messageTest = err.message.match(/.*[\s]{1}could not load something at cannot.test.js on line\s[0-9]{1,5}\n[\s]{1,8}because .*[\s]{1}could not connect to internet at cannot.test.js on line\s[0-9]{1,5}, because ground_zero./ig);
+      expect(messageTest).to.be.ok();
+    });
+
+
   });
 
   //

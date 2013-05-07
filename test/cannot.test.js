@@ -31,6 +31,7 @@ describe('Cannot Exception', function(){
       expect(err).to.have.property('code', 'cannot_load_something');
       expect(err).to.have.property('subject', 'something');
       expect(err).to.have.property('reason', 'there_is_nothing_to_load');
+      expect(err instanceof Error).to.be.ok();
     });
 
     //
@@ -46,6 +47,7 @@ describe('Cannot Exception', function(){
       expect(err).to.have.property('code', 'cannot_load_something');
       expect(err).to.have.property('subject', 'something');
       expect(err).to.have.property('reason', 'there_is_nothing_to_load');
+      expect(err instanceof Error).to.be.ok();
     });
 
     //
@@ -254,7 +256,7 @@ describe('Cannot Exception', function(){
       expect(err).to.have.property('object', 'Alice');
       expect(err).to.have.property('action', 'fly_into');
       expect(err).to.have.property('subject', 'the_sky');
-
+      expect(err instanceof Error).to.be.ok();
 
     });
 

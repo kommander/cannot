@@ -1,6 +1,6 @@
 {   "name": "cannot"
   , "description": "Easy and fun error handling, by enforcing human readable messages without compromising machine processing ability."
-  , "version": "0.1.6"
+  , "version": "0.1.7"
   , "author": "Sebastian Herrlinger <sebastian@kosmokommando.com>"
   , "license" : "MIT"
   , "repository": { "type": "git", "url": "https://github.com/kommander/cannot.js.git" }

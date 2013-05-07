@@ -124,7 +124,7 @@ describe('Cannot Exception', function(){
       expect(err).to.be.an('object');
       expect(err).to.have.property('code', 'cannot_load_something');
       expect(err).to.have.property('subject', 'something');
-      var messageTest = err.message.match(/.*[\s]{1}could not load something at cannot.test.js on line\s[0-9]{1,5}\n[\s]{1,8}because .*[\s]{1}could not connect to internet at cannot.test.js on line\s[0-9]{1,5}, because ground_zero./ig);
+      var messageTest = err.message.match(/.*[\s]{1}could not load something at cannot.test.js on line\s[0-9]{1,5},[\s]{1,8}because .*[\s]{1}could not connect to internet at cannot.test.js on line\s[0-9]{1,5}, because ground_zero./ig);
       expect(messageTest).to.be.ok();
     });
 
@@ -150,7 +150,7 @@ describe('Cannot Exception', function(){
       expect(err).to.be.an('object');
       expect(err).to.have.property('code', 'cannot_load_something');
       expect(err).to.have.property('subject', 'something');
-      var messageTest = err.message.match(/.*[\s]{1}could not load something at cannot.test.js on line\s[0-9]{1,5}\n[\s]{1,8}because .*[\s]{1}could not connect to internet at cannot.test.js on line\s[0-9]{1,5}, because ground_zero./ig);
+      var messageTest = err.message.match(/.*[\s]{1}could not load something at cannot.test.js on line\s[0-9]{1,5},[\s]{1,8}because .*[\s]{1}could not connect to internet at cannot.test.js on line\s[0-9]{1,5}, because ground_zero./ig);
       expect(messageTest).to.be.ok();
     });
 

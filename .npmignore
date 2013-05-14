@@ -7,3 +7,4 @@ test
 ._*
 Makefile
 dev
+*.log

@@ -536,4 +536,29 @@ describe('Cannot Exception', function(){
     });
 
   });
+
+  //
+  //
+  describe('data attributes', function(){
+    //
+    // 
+    it('should add a reason to the exception', function(){
+
+      function Alice(){}
+      
+      var alice = new Alice();
+      var err = alice.cannot('fly into', 'the sky').addData({
+        key: 'value'
+      });
+
+      // Handle exception explicitly
+      err.handle();
+
+      expect(err).to.have.property('data');
+      expect(err.data).to.be.an('object');
+      expect(err.data).to.have.property('key', 'value');
+
+    });
+
+  });
 });

@@ -561,4 +561,51 @@ describe('Cannot Exception', function(){
     });
 
   });
+
+  //
+  //
+  describe('info attributes', function(){
+    //
+    // 
+    it('should add info to the message if given', function(){
+
+      function Alice(){}
+      
+      var alice = new Alice();
+      var err = alice.cannot('fly into', 'the sky').info('additional stuff');
+
+      // Handle exception explicitly
+      err.handle();
+
+      expect(err).to.have.property('_infoStr');
+      expect(err._infoStr).to.be.a('string');
+      expect(err._infoStr).to.be('additional stuff');
+      expect(err.message).to.be('Alice could not fly into the sky at cannot.test.js on line 575. (No reason) (additional stuff)');
+    });
+
+  });
+
+  //
+  //
+  describe('stacked info attributes', function(){
+    //
+    // 
+    it('should add info to the message if given', function(){
+
+      function Alice(){}
+      
+      var alice = new Alice();
+      var err1 = Cannot('overcome', 'gravity');
+      var err = alice.cannot('fly into', 'the sky').info('additional stuff').because(err1);
+
+      // Handle exception explicitly
+      err.handle();
+
+      expect(err).to.have.property('_infoStr');
+      expect(err._infoStr).to.be.a('string');
+      expect(err._infoStr).to.be('additional stuff');
+      expect(err.message).to.be('Alice could not fly into the sky at cannot.test.js on line 599 (additional stuff), because I could not overcome gravity at cannot.test.js on line 598. (No reason)');
+    });
+
+  });
 });

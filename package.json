@@ -6,6 +6,8 @@
   , "repository": { "type": "git", "url": "https://github.com/kommander/cannot.js.git" }
   , "homepage": "https://github.com/kommander/cannot.js"
   , "devDependencies": {
+      "istanbul": "^0.4.2",
+      "eslint": "^1.7.3",
       "mocha": "*",
       "expect.js": "*",
       "should": "*",
@@ -17,4 +19,7 @@
   , "keywords": ["error", "handling", "human", "readable", "error message"]
   , "main": "./lib/cannot.js"
   , "engines": { "node": ">= 0.8.0" }
+  , "publishConfig": {
+      "registry": "http://registry.npmjs.org"
+  }
 }

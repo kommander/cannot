@@ -174,11 +174,29 @@ An error can be created from calling `Cannot()` as a function, or by calling `Ob
 When using `Cannot()` standalone with default configuration, it tries to grab the object which `could not` perform an action from the stack trace.
 Using the `Object#cannot` API extension though obviously has an object which `could not`.
 
-## Running the tests
-	
-	$ make test  
+## Develop
+To start developing, check out this repository and do:
 
-Will run `npm install` to make sure dev dependencies are installed and then run the tests using [mocha](http://visionmedia.github.io/mocha/).
+```$ make dev```
+
+
+_make dev_ installs the initial dev dependencies and sets up git hooks, to run tests before you can push.
+Happy hacking!
+
+## Tests & Coverage
+
+[Mocha](http://mochajs.org) is the test runner in use, 
+extended by [expect.js](https://github.com/Automattic/expect.js) and [should](https://shouldjs.github.io) within a [BDD](https://en.wikipedia.org/wiki/Behavior-driven_development) setup.
+```
+$ make test
+```
+
+To generate a test coverage report, it uses [istanbul](https://gotwarlost.github.io/istanbul/).
+```
+$ make coverage
+```
+
+
 
 ## License
 

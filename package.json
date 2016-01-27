@@ -1,25 +1,38 @@
-{   "name": "cannot"
-  , "description": "Easy error handling, by enforcing human readable messages without compromising machine processing ability."
-  , "version": "0.1.10"
-  , "author": "Sebastian Herrlinger <sebastian@kosmokommando.com>"
-  , "license" : "MIT"
-  , "repository": { "type": "git", "url": "https://github.com/kommander/cannot.js.git" }
-  , "homepage": "https://github.com/kommander/cannot.js"
-  , "devDependencies": {
-      "istanbul": "^0.4.2",
-      "eslint": "^1.7.3",
-      "mocha": "*",
-      "expect.js": "*",
-      "should": "*",
-      "sinon": "*"
-  }
-  , "scripts": {
+{
+  "name": "cannot",
+  "description": "Easy error handling, by enforcing human readable messages without compromising machine processing ability.",
+  "version": "",
+  "author": "Sebastian Herrlinger <sebastian@kosmokommando.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kommander/cannot.js.git"
+  },
+  "homepage": "https://github.com/kommander/cannot.js",
+  "devDependencies": {
+    "eslint": "^1.7.3",
+    "expect.js": "*",
+    "istanbul": "^0.4.2",
+    "mocha": "*",
+    "semver": "^5.1.0",
+    "should": "*",
+    "sinon": "*"
+  },
+  "scripts": {
     "test": "./node_modules/.bin/mocha --require should --reporter tap"
-  }
-  , "keywords": ["error", "handling", "human", "readable", "error message"]
-  , "main": "./lib/cannot.js"
-  , "engines": { "node": ">= 0.8.0" }
-  , "publishConfig": {
-      "registry": "http://registry.npmjs.org"
+  },
+  "keywords": [
+    "error",
+    "handling",
+    "human",
+    "readable",
+    "error message"
+  ],
+  "main": "./lib/cannot.js",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org"
   }
 }

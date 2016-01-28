@@ -12,6 +12,7 @@
   "devDependencies": {
     "eslint": "^1.7.3",
     "expect.js": "*",
+    "coffee-script": "^1.10.0",
     "istanbul": "^0.4.2",
     "mocha": "*",
     "semver": "^5.1.0",

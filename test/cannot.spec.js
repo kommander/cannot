@@ -4,13 +4,13 @@
 /* eslint-disable new-cap */
 const expect = require('expect.js');
 // const sinon = require('sinon');
-const Cannot = require('../lib/cannot.js');
+const cannot = require('../lib/cannot.js');
 
-describe('Cannot Exception', () => {
+describe('cannot Exception', () => {
   //
   //
   it('Should create an exception from arguments', () => {
-    const err = new Cannot(
+    const err = new cannot(
       'load',
       'something',
       'there is nothing to load'
@@ -26,7 +26,7 @@ describe('Cannot Exception', () => {
   //
   //
   it('Should allow construction without the "new" keyword', () => {
-    const err = Cannot(
+    const err = cannot(
       'load',
       'something',
       'there is nothing to load'
@@ -42,7 +42,7 @@ describe('Cannot Exception', () => {
   //
   //
   it('Should work without a reason', () => {
-    const err = Cannot(
+    const err = cannot(
       'load',
       'something'
     );
@@ -58,7 +58,7 @@ describe('Cannot Exception', () => {
   //
   it('Should work with promises', (done) => {
     const promiseFn = () => new Promise((resolve, reject) => {
-      reject(Cannot('do', 'something'));
+      reject(cannot('do', 'something'));
     });
 
     promiseFn().catch((err) => {
@@ -75,7 +75,7 @@ describe('Cannot Exception', () => {
   //
   it('should throw an Error if no verb is given', () => {
     expect(() => {
-      Cannot(null, 'user');
+      cannot(null, 'user');
     }).to.throwException();
   });
 
@@ -83,51 +83,51 @@ describe('Cannot Exception', () => {
   //
   it('should throw an Error if no object is given', () => {
     expect(() => {
-      Cannot('load', null);
+      cannot('load', null);
     }).to.throwException();
   });
 
   //
   //
   it('should be configurable', () => {
-    Cannot.config({
+    cannot.config({
       prefix: 'could not',
     });
-    const err = Cannot('do', 'something');
+    const err = cannot('do', 'something');
     expect(err).to.have.property('code', 'could_not_do_something');
 
     // Reset to default
-    Cannot.config({ prefix: 'cannot' });
+    cannot.config({ prefix: 'cannot' });
   });
 
   //
   //
   it('should work without prefix', () => {
-    Cannot.config({
+    cannot.config({
       prefix: '',
     });
-    const err = Cannot('do', 'something');
+    const err = cannot('do', 'something');
     expect(err).to.have.property('code', 'do_something');
 
     // Reset to default
-    Cannot.config({ prefix: 'cannot' });
+    cannot.config({ prefix: 'cannot' });
   });
 
   it('should handle non-string reasons', () => {
-    const err = Cannot('do', 'something');
+    const err = cannot('do', 'something');
     err.reason = { code: 'something_else' };
     expect(err.reason).to.be('something_else');
   });
 
   it('should handle non-string reasons without _code_ attribute', () => {
-    const err = Cannot('do', 'something');
+    const err = cannot('do', 'something');
     err.reason = { none: 'something_else' };
     expect(err.reason).to.be.an('object');
     expect(err.reason).to.have.property('none', 'something_else');
   });
 
   it('should be possible to set the subject', () => {
-    const err = Cannot('fly', 'away');
+    const err = cannot('fly', 'away');
     err.subject = 'Alice';
     expect(err.subject).to.be('Alice');
     expect(err.message).to.be('Alice could not fly away. (No reason)');
@@ -136,7 +136,7 @@ describe('Cannot Exception', () => {
   //
   //
   it('should have an verb attribute', () => {
-    const err = Cannot('load', 'user');
+    const err = cannot('load', 'user');
     expect(err.verb).to.be('load');
   });
 
@@ -146,7 +146,7 @@ describe('Cannot Exception', () => {
     //
     //
     it('Should return a formulated error message', () => {
-      const err = Cannot(
+      const err = cannot(
         'load',
         'something',
         'there is nothing to load'
@@ -162,7 +162,7 @@ describe('Cannot Exception', () => {
     //
     //
     it('Should include reason into the message', () => {
-      const err = Cannot(
+      const err = cannot(
         'load',
         'something',
         {
@@ -183,10 +183,10 @@ describe('Cannot Exception', () => {
     //
     //
     it('Should handle stacked exceptions', () => {
-      const err = Cannot(
+      const err = cannot(
         'load',
         'something',
-        Cannot(
+        cannot(
           'connect',
           'to internet',
           {
@@ -208,11 +208,11 @@ describe('Cannot Exception', () => {
     //
     //
     it('Should handle stacked exceptions (using because helper)', () => {
-      const err = Cannot(
+      const err = cannot(
         'load',
         'something'
       ).because(
-        Cannot(
+        cannot(
           'connect',
           'to internet',
           {
@@ -238,16 +238,15 @@ describe('Cannot Exception', () => {
     //
     //
     it('should add a reason to the exception', () => {
-      const err = Cannot('fly into', 'the sky').because('she is out of mushrooms');
+      const err = cannot('fly into', 'the sky').because('she is out of mushrooms');
 
       expect(err).to.have.property('reason', 'she_is_out_of_mushrooms');
     });
 
-
     //
     // TODO: Allow adding multiple reasons 'because X and Y and Z'
     it('should throw an error when setting the reason twice', () => {
-      const err = Cannot('fly into', 'the sky').because('she is out of mushrooms');
+      const err = cannot('fly into', 'the sky').because('she is out of mushrooms');
 
       expect(() => {
         err.because('she has enough mushrooms');
@@ -263,7 +262,7 @@ describe('Cannot Exception', () => {
     //
     //
     it('should add data to the exception', () => {
-      const err = Cannot('fly into', 'the sky').addData({
+      const err = cannot('fly into', 'the sky').addData({
         key: 'value',
       });
 
@@ -275,7 +274,7 @@ describe('Cannot Exception', () => {
     //
     //
     it('data should return null if none was given', () => {
-      const err = Cannot('fly into', 'the sky');
+      const err = cannot('fly into', 'the sky');
 
       expect(err).to.have.property('data');
       expect(err.data).to.be(null);
@@ -284,7 +283,7 @@ describe('Cannot Exception', () => {
     //
     //
     it('does not overwrite with empty data', () => {
-      const err = Cannot('fly into', 'the sky').addData({
+      const err = cannot('fly into', 'the sky').addData({
         key: 'value',
       }).addData(null);
 
@@ -300,7 +299,7 @@ describe('Cannot Exception', () => {
     //
     //
     it('should add info to the message if given', () => {
-      const err = Cannot('fly into', 'the sky').info('additional stuff');
+      const err = cannot('fly into', 'the sky').info('additional stuff');
 
       expect(err).to.have.property('_infoStr');
       expect(err._infoStr).to.be.a('string');
@@ -315,8 +314,8 @@ describe('Cannot Exception', () => {
     //
     //
     it('should add info to the message if given', () => {
-      const err1 = Cannot('overcome', 'gravity');
-      const err = Cannot('fly into', 'the sky').info('additional stuff').because(err1);
+      const err1 = cannot('overcome', 'gravity');
+      const err = cannot('fly into', 'the sky').info('additional stuff').because(err1);
 
       expect(err).to.have.property('_infoStr');
       expect(err._infoStr).to.be.a('string');
@@ -324,5 +323,132 @@ describe('Cannot Exception', () => {
       // eslint-disable-next-line
       expect(err.message).to.be('I could not fly into the sky (additional stuff), because I could not overcome gravity. (No reason)');
     });
+  });
+
+  //
+  //
+  describe('reason/error handling', () => {
+    it('provides a convenience checker (verb/object)', () => {
+      const err = cannot('load', 'user');
+
+      expect(err.is('load', 'user')).to.be.ok();
+      expect(err.is('save', 'user')).to.not.be.ok();
+    });
+
+    it('provides a convenience checker (multiword verb/object)', () => {
+      const err = cannot('connect to', 'database');
+
+      expect(err.is('connect to', 'database')).to.be.ok();
+      expect(err.is('save', 'user')).to.not.be.ok();
+    });
+
+    it('provides a convenience checker (error code)', () => {
+      const err = cannot('load', 'user');
+
+      // with a single argument the convenience .is() checker
+      // evaluates the error code instead of the verb/object
+      expect(err.is('cannot load user')).to.be.ok();
+      expect(err.is('cannot save user')).to.not.be.ok();
+    });
+
+    it('allows to recover from a specific reason (error code)', () => {
+      const err = cannot('load', 'user')
+        .because('database is down');
+
+      expect(err.assert.cannot('load', 'user')).to.have.property('because');
+    });
+
+    it('allows to recover from a specific reason (error code, is.cannot)', () => {
+      const err = cannot('load', 'user');
+
+      expect(err.is.cannot('load', 'user')).to.have.property('because');
+    });
+
+    it('assert is bound correctly to this.is', () => {
+      const err = cannot('load', 'user');
+      const err2 = cannot('save', 'user');
+
+      expect(err.is.cannot('load', 'user')).to.be.ok();
+      expect(err2.is.cannot('save', 'user')).to.be.ok();
+    });
+
+    it('allows to recover from a specific reason (error code, assert.cannot)', () => {
+      const err = cannot('load', 'user').because('database is down');
+
+      expect(err.assert.cannot('load', 'user').because('database is down')).to.be.ok();
+      expect(err.assert.cannot('load', 'user').because('user not found')).to.not.be.ok();
+    });
+
+    it('allows to recover from a specific reason (error code, is.cannot)', () => {
+      const err = cannot('load', 'user').because('database is down');
+
+      expect(err.is.cannot('load', 'user').because('database is down')).to.be.ok();
+      expect(err.is.cannot('load', 'user').because('user not found')).to.not.be.ok();
+    });
+
+    it('allows to recover from a specific reason (verb/object)', () => {
+      const err = cannot('load', 'user').because(cannot('connect to', 'database'));
+      console.log(err.is.cannot('load', 'user'));
+      expect(err.is.cannot('load', 'user')).to.be.ok();
+    });
+
+    it('allows to recover from a specific reason (verb/object, because.cannot)', () => {
+      const err = cannot('load', 'user').because(cannot('connect to', 'database'));
+
+      expect(err.is.cannot('load', 'user')
+        .because.cannot('connect to', 'database')).to.be.ok();
+      expect(err.is.cannot('load', 'user')
+        .because.cannot('find', 'user')).to.not.be.ok();
+    });
+    //
+    // it('checks case insensitive', (done) => {
+    //   done('implement me');
+    // });
+
+    // ERROR HANDLING INTERFACE SUGGESTIONS
+    //
+    // it('provides convenience methods to handle an error (one handler)', (done) => {
+    //   const err = cannot('load', 'user');
+    //
+    //   // if a handle matches the err/reason and returns true,
+    //   // the error is marked as handled,
+    //   // so subsequent handles are not checked or called anymore
+    //   err.handle('load', 'user', (reason) => {
+    //     done();
+    //     return true;
+    //   });
+    // });
+    //
+    // it('convenience methods to handle an error can be stacked', () => {
+    //   const err = cannot('load', 'user');
+    //
+    //   err.handle('load', 'user')
+    //     .with((reason) => {
+    //       return false;
+    //     })
+    //     .with(() => {
+    //       return true;
+    //     })
+    //     .with(() => {
+    //       done('not called anymore')
+    //     });
+    // });
+    //
+    // it('provides handler interface for a specific reason', () => {
+    //   const err = cannot('load', 'user')
+    //     .because(cannot('connect to', 'database'));
+    //
+    //   err.handle.cannot('load', 'user')
+    //     .because.cannot('connect to', 'database')
+    //     .with(() => {
+    //       return false;
+    //     })
+    //     .with(() => {
+    //       return true;
+    //     })
+    //     .with(() => {
+    //       done('not called anymore')
+    //     });
+    // });
   });
 });

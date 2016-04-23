@@ -1,0 +1,16 @@
+{
+  "name": "cannot",
+  "version": "2.0.0",
+  "dependencies": {
+    "eslint-plugin-jsx-a11y": {
+      "version": "0.6.2",
+      "from": "eslint-plugin-jsx-a11y@>=0.6.2 <0.7.0",
+      "resolved": "https://registry.npmjs.org/eslint-plugin-jsx-a11y/-/eslint-plugin-jsx-a11y-0.6.2.tgz"
+    },
+    "eslint-plugin-react": {
+      "version": "4.3.0",
+      "from": "eslint-plugin-react@>=4.3.0 <5.0.0",
+      "resolved": "https://npm.groupondev.com:443/api/npm/npm-release/eslint-plugin-react/-/eslint-plugin-react-4.3.0.tgz"
+    }
+  }
+}

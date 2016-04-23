@@ -388,7 +388,7 @@ describe('cannot Exception', () => {
 
     it('allows to recover from a specific reason (verb/object)', () => {
       const err = cannot('load', 'user').because(cannot('connect to', 'database'));
-      console.log(err.is.cannot('load', 'user'));
+
       expect(err.is.cannot('load', 'user')).to.be.ok();
     });
 

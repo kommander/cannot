@@ -1,3 +1,0 @@
-//
-// Test stack trace extension
-//

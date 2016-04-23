@@ -351,14 +351,14 @@ describe('cannot Exception', () => {
       expect(err.is('cannot save user')).to.not.be.ok();
     });
 
-    it('allows to recover from a specific reason (error code)', () => {
+    it('provides a convenience checker (verb / object, assert.cannot, because)', () => {
       const err = cannot('load', 'user')
         .because('database is down');
 
       expect(err.assert.cannot('load', 'user')).to.have.property('because');
     });
 
-    it('allows to recover from a specific reason (error code, is.cannot)', () => {
+    it('provides a convenience checker (verb/object, is.cannot, because)', () => {
       const err = cannot('load', 'user');
 
       expect(err.is.cannot('load', 'user')).to.have.property('because');
@@ -386,10 +386,24 @@ describe('cannot Exception', () => {
       expect(err.is.cannot('load', 'user').because('user not found')).to.not.be.ok();
     });
 
-    it('allows to recover from a specific reason (verb/object)', () => {
+    it('provides a convenience checker (verb/object, is.cannot)', () => {
       const err = cannot('load', 'user').because(cannot('connect to', 'database'));
-
       expect(err.is.cannot('load', 'user')).to.be.ok();
+    });
+
+    it('provides a convenience checker (verb/object, true())', () => {
+      const err = cannot('load', 'user');
+      expect(err.is.cannot('load', 'user').true()).to.be.ok();
+    });
+
+    it('provides a convenience checker (verb/object, false())', () => {
+      const err = cannot('load', 'user');
+      expect(err.is.cannot('save', 'user').false()).to.be.ok();
+    });
+
+    it('provides a convenience checker (verb/object, false, revert)', () => {
+      const err = cannot('load', 'user').because(cannot('connect to', 'database'));
+      expect(err.is.cannot('save', 'user').false()).to.be.ok();
     });
 
     it('allows to recover from a specific reason (verb/object, because.cannot)', () => {

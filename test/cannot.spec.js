@@ -18,7 +18,7 @@ describe('Cannot Exception', () => {
 
     expect(err).to.be.an('object');
     expect(err).to.have.property('code', 'cannot_load_something');
-    expect(err).to.have.property('subject', 'something');
+    expect(err).to.have.property('object', 'something');
     expect(err).to.have.property('reason', 'there_is_nothing_to_load');
     expect(err instanceof Error).to.be.ok();
   });
@@ -34,7 +34,7 @@ describe('Cannot Exception', () => {
 
     expect(err).to.be.an('object');
     expect(err).to.have.property('code', 'cannot_load_something');
-    expect(err).to.have.property('subject', 'something');
+    expect(err).to.have.property('object', 'something');
     expect(err).to.have.property('reason', 'there_is_nothing_to_load');
     expect(err instanceof Error).to.be.ok();
   });
@@ -49,7 +49,7 @@ describe('Cannot Exception', () => {
 
     expect(err).to.be.an('object');
     expect(err).to.have.property('code', 'cannot_load_something');
-    expect(err).to.have.property('subject', 'something');
+    expect(err).to.have.property('object', 'something');
     const messageTest = err.message.match(/.*[\s]{1}could not load something\. \(No reason\)/ig);
     expect(messageTest).to.be.ok();
   });
@@ -73,9 +73,17 @@ describe('Cannot Exception', () => {
 
   //
   //
-  it('should throw an Error if no subject or action is given', () => {
+  it('should throw an Error if no verb is given', () => {
     expect(() => {
-      Cannot(null, null);
+      Cannot(null, 'user');
+    }).to.throwException();
+  });
+
+  //
+  //
+  it('should throw an Error if no object is given', () => {
+    expect(() => {
+      Cannot('load', null);
     }).to.throwException();
   });
 
@@ -105,18 +113,18 @@ describe('Cannot Exception', () => {
     expect(err.reason).to.have.property('none', 'something_else');
   });
 
-  it('should be possible to set the object', () => {
+  it('should be possible to set the subject', () => {
     const err = Cannot('fly', 'away');
-    err.object = 'Alice';
-    expect(err.object).to.be('Alice');
+    err.subject = 'Alice';
+    expect(err.subject).to.be('Alice');
     expect(err.message).to.be('Alice could not fly away. (No reason)');
   });
 
   //
   //
-  it('should have an action attribute', () => {
+  it('should have an verb attribute', () => {
     const err = Cannot('load', 'user');
-    expect(err.action).to.be('load');
+    expect(err.verb).to.be('load');
   });
 
   //
@@ -152,7 +160,7 @@ describe('Cannot Exception', () => {
 
       expect(err).to.be.an('object');
       expect(err).to.have.property('code', 'cannot_load_something');
-      expect(err).to.have.property('subject', 'something');
+      expect(err).to.have.property('object', 'something');
       const messageTest = err.message.match(
         /.*[\s]{1}could not load something, because fakeParent\./ig
       );
@@ -177,7 +185,7 @@ describe('Cannot Exception', () => {
 
       expect(err).to.be.an('object');
       expect(err).to.have.property('code', 'cannot_load_something');
-      expect(err).to.have.property('subject', 'something');
+      expect(err).to.have.property('object', 'something');
       // eslint-disable-next-line
       const messageTest = err.message.match(/.*[\s]{1}could not load something, because .*[\s]{1}could not connect to internet, because ground_zero\./ig);
       expect(messageTest).to.be.ok();
@@ -203,7 +211,7 @@ describe('Cannot Exception', () => {
 
       expect(err).to.be.an('object');
       expect(err).to.have.property('code', 'cannot_load_something');
-      expect(err).to.have.property('subject', 'something');
+      expect(err).to.have.property('object', 'something');
       // eslint-disable-next-line
       const messageTest = err.message.match(/.*[\s]{1}could not load something, because .*[\s]{1}could not connect to internet, because ground_zero\./ig);
       expect(messageTest).to.be.ok();

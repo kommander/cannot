@@ -100,6 +100,19 @@ describe('Cannot Exception', () => {
     Cannot.config({ prefix: 'cannot' });
   });
 
+  //
+  //
+  it('should work without prefix', () => {
+    Cannot.config({
+      prefix: '',
+    });
+    const err = Cannot('do', 'something');
+    expect(err).to.have.property('code', 'do_something');
+
+    // Reset to default
+    Cannot.config({ prefix: 'cannot' });
+  });
+
   it('should handle non-string reasons', () => {
     const err = Cannot('do', 'something');
     err.reason = { code: 'something_else' };

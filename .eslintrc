@@ -1,37 +1,3 @@
 {
-  "ecmaFeatures": {
-    "arrowFunctions": true,
-    "blockBindings": true,
-    "classes": true,
-    "defaultParams": true,
-    "destructuring": true,
-    "forOf": true,
-    "modules": true,
-    "objectLiteralShorthandMethods": true,
-    "objectLiteralShorthandProperties": true,
-    "restParams": true,
-    "spread": true,
-    "superInFunctions": true,
-    "templateStrings": true
-  },
-  "env": {
-    "browser": true,
-    "node": true
-  },
-  "rules": {
-    "curly": [2, "multi-line"],
-    "quotes": [2, "single"],
-    "strict": [2, "global"],
-    "eol-last": [0],
-    "func-style": [2, "declaration", {allowArrowFunctions: true}],
-    "new-cap": [0],
-    "no-debugger": 1,
-    "no-mixed-requires": [0],
-    "no-underscore-dangle": [0],
-    "no-unused-vars": 1,
-    "no-use-before-define": [2, "nofunc"]
-  },
-  "plugins": [
-    
-  ]
+  "extends": "airbnb/base"
 }

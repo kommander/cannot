@@ -262,7 +262,7 @@ describe('Cannot Exception', () => {
   describe('data attributes', () => {
     //
     //
-    it('should add a reason to the exception', () => {
+    it('should add data to the exception', () => {
       const err = Cannot('fly into', 'the sky').addData({
         key: 'value',
       });
@@ -271,27 +271,19 @@ describe('Cannot Exception', () => {
       expect(err.data).to.be.an('object');
       expect(err.data).to.have.property('key', 'value');
     });
-  });
 
-  //
-  //
-  describe('data should return null if none was given', () => {
     //
     //
-    it('should add a reason to the exception', () => {
+    it('data should return null if none was given', () => {
       const err = Cannot('fly into', 'the sky');
 
       expect(err).to.have.property('data');
       expect(err.data).to.be(null);
     });
-  });
 
-  //
-  //
-  describe('do not overwrite with empty data', () => {
     //
     //
-    it('should add a reason to the exception', () => {
+    it('does not overwrite with empty data', () => {
       const err = Cannot('fly into', 'the sky').addData({
         key: 'value',
       }).addData(null);

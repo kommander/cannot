@@ -2,7 +2,7 @@ cannot.js
 =========
 
 Easy and fun error handling, by enforcing human readable messages without compromising machine processing ability.
-  
+
 [![Build Status](https://travis-ci.org/kommander/cannot.js.png)](https://travis-ci.org/kommander/cannot.js)  
 
 
@@ -14,29 +14,27 @@ _Cannot_ extends the base _Error_, can be thrown and behaves just like expected.
 throw Cannot('attend', 'the party').because('I fell into a rabbit hole');  
 // err.message       -> {String} "I could not attend the party, because I fell into a rabbit hole."  
 // err.code          -> {String} "cannot_attend_the_party"  
-// err.action        -> {String} "attend"  
-// err.subject       -> {String} "the_party"  
+// err.verb          -> {String} "attend"  
+// err.object        -> {String} "the_party"  
 // err.reason        -> {String} "i_fell_into_a_rabbit_hole"
 ```
 
 
 ## Introduction
-`Cannot.js` follows a very simple syntax. It makes you think about what really went wrong and helps you to avoid inconsistent error codes. 
+`Cannot.js` follows a very simple syntax. It makes you think about what really went wrong and helps you to _avoid inconsistent error codes_.
 
-`Object` cannot `perform action` on `subject`, because `it had a reason`.
+`Subject` cannot `perform verb/action` on `object`, because `it had a reason`.
 
-The generated message aims to be as user friendly as possible, without you having to write it manually. All error specific data which you need to handle it elsewhere in your application, is derived from your simple specification.  
+The generated message aims to be as user friendly as possible, without you having to write it manually. All error specific data which you need to handle it elsewhere in your application, is derived from your simple declaration.  
 The `because` api helps you to specify a reason, which allows you to pass on error objects as well.
 
-
 ## Installation  
-
-  $ npm install cannot
-
+```
+$ npm install cannot
+```
 
 ### Code Editor Snippets
 The package includes auto completion snippets for _Sublime Text 2_ to support the _Cannot.js_ paradigm.
-
 
 ## Stacking Errors
 `Cannot` instances can be stacked onto each other by handing them over as a reason to the next error.
@@ -50,17 +48,17 @@ console.log(err3.message);
 ```
 
 This should produce the following output:  
-<pre>
+```
 I could not do what I should do
     because I could not do what I should do
     because I could not do what I should do. (No reason)
-</pre>  
+```
 
 For more information on stacking errors, have a look at the [examples](https://github.com/kommander/cannot.js/tree/master/examples)
 
 
 ## Reasons
-Throwing errors without a reason doesn't make sense, does it? So  the majority of errors have a reason which is known, like "because the database had a hiccup" or "the network was down". _Cannot_ errors support _reasons_ to make handling them easier then reacting to a single error code of "user_loading_failed" or "connection_failure". _Cannot_ errors gently remind you that there mostly is a reason for the error, by adding "(No reason)" to the error message, if no reason is given. 
+Throwing errors without a reason doesn't make sense, does it? So  the majority of errors have a reason which is known, like "because the database had a hiccup" or "the network was down". _Cannot_ errors support _reasons_ to make handling them easier than reacting to a single error code of "user_loading_failed" or "connection_failure". _Cannot_ errors gently remind you that there always is a reason for an error, by adding "(No reason)" to the error message, if no reason is given.
 
 
 ## Enforcing Error Handling
@@ -68,24 +66,20 @@ Errors should be handled and never ever be silently dropped. Most errors can be 
 
 
 ## Creating Errors
-An error can be created from calling `Cannot()` as a function, or by calling `Object#cannot()`, which both will return a `Cannot` instance. A `Cannot` instance can also be `thrown`.  
-When using `Cannot()` standalone with default configuration, it tries to grab the object which `could not` perform an action from the stack trace.
-Using the `Object#cannot` API extension though obviously has an object which `could not`.
-
+An error can be created from calling `Cannot()` as a function which will return a `Cannot` instance. A `Cannot` instance can also be `thrown`.  
 
 ## Develop
 To start developing, check out this repository and do:
 
-```$ make dev```
+```
+$ make dev
+```
 
-
-_make dev_ installs the initial dev dependencies and sets up git hooks, to run tests before you can push.
-Happy hacking!
-
+_make dev_ installs the initial dev dependencies and sets up git hooks, to run tests before you can push. Happy hacking!
 
 ## Tests & Coverage
 
-[Mocha](http://mochajs.org) is the test runner in use, 
+[Mocha](http://mochajs.org) is the test runner in use,
 extended by [expect.js](https://github.com/Automattic/expect.js) and [should](https://shouldjs.github.io) within a [BDD](https://en.wikipedia.org/wiki/Behavior-driven_development) setup.
 ```
 $ make test
@@ -96,13 +90,11 @@ To generate a test coverage report, it uses [istanbul](https://gotwarlost.github
 $ make coverage
 ```
 
-
-
 ## License
 
 (The MIT License)
 
-Copyright (c) 2013 Sebastian Herrlinger (https://github.com/kommander)
+Copyright (c) 2016 Sebastian Herrlinger (https://github.com/kommander)
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

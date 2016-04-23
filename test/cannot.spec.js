@@ -1,21 +1,16 @@
 /**
  * Tests for: lib/core/core.js
  */
+/* eslint-disable new-cap */
+const expect = require('expect.js');
+// const sinon = require('sinon');
+const Cannot = require('../lib/cannot.js');
 
-var expect = require('expect.js');
-var sinon = require('sinon');
-var events = require('events');
-var EventEmitter = events.EventEmitter;
-
-var Cannot = require('../lib/cannot.js');
-
-
-describe('Cannot Exception', function(){
-
+describe('Cannot Exception', () => {
   //
   //
-  it('Should create an exception from arguments', function(){
-    var err = new Cannot(
+  it('Should create an exception from arguments', () => {
+    const err = new Cannot(
       'load',
       'something',
       'there is nothing to load'
@@ -30,8 +25,8 @@ describe('Cannot Exception', function(){
 
   //
   //
-  it('Should allow construction without the "new" keyword', function(){
-    var err = Cannot(
+  it('Should allow construction without the "new" keyword', () => {
+    const err = Cannot(
       'load',
       'something',
       'there is nothing to load'
@@ -46,8 +41,8 @@ describe('Cannot Exception', function(){
 
   //
   //
-  it('Should work without a reason', function(){
-    var err = Cannot(
+  it('Should work without a reason', () => {
+    const err = Cannot(
       'load',
       'something'
     );
@@ -55,23 +50,21 @@ describe('Cannot Exception', function(){
     expect(err).to.be.an('object');
     expect(err).to.have.property('code', 'cannot_load_something');
     expect(err).to.have.property('subject', 'something');
-    var messageTest = err.message.match(/.*[\s]{1}could not load something\. \(No reason\)/ig);
+    const messageTest = err.message.match(/.*[\s]{1}could not load something\. \(No reason\)/ig);
     expect(messageTest).to.be.ok();
   });
 
   //
   //
-  it('Should work with promises', function(done){
-    const promiseFn = () => {
-      return new Promise((resolve, reject) => {
-        reject(Cannot('do', 'something'));
-      });
-    };
+  it('Should work with promises', (done) => {
+    const promiseFn = () => new Promise((resolve, reject) => {
+      reject(Cannot('do', 'something'));
+    });
 
     promiseFn().catch((err) => {
       try {
         expect(err).to.have.property('code', 'cannot_do_something');
-      } catch(e){
+      } catch (e) {
         done(e);
       }
       done();
@@ -80,41 +73,40 @@ describe('Cannot Exception', function(){
 
   //
   //
-  it('should throw an Error if no subject or action is given', function(){
-    expect(function(){
+  it('should throw an Error if no subject or action is given', () => {
+    expect(() => {
       Cannot(null, null);
     }).to.throwException();
   });
 
   //
   //
-  it('should be configurable', function(){
+  it('should be configurable', () => {
     Cannot.config({
-      prefix: 'could not'
+      prefix: 'could not',
     });
-    var err = Cannot('do', 'something');
+    const err = Cannot('do', 'something');
     expect(err).to.have.property('code', 'could_not_do_something');
 
     // Reset to default
     Cannot.config({ prefix: 'cannot' });
-
   });
 
-  it('should handle non-string reasons', function(){
-    var err = Cannot('do', 'something');
+  it('should handle non-string reasons', () => {
+    const err = Cannot('do', 'something');
     err.reason = { code: 'something_else' };
     expect(err.reason).to.be('something_else');
   });
 
-  it('should handle non-string reasons without _code_ attribute', function(){
-    var err = Cannot('do', 'something');
+  it('should handle non-string reasons without _code_ attribute', () => {
+    const err = Cannot('do', 'something');
     err.reason = { none: 'something_else' };
     expect(err.reason).to.be.an('object');
     expect(err.reason).to.have.property('none', 'something_else');
   });
 
-  it('should be possible to set the object', function(){
-    var err = Cannot('fly', 'away');
+  it('should be possible to set the object', () => {
+    const err = Cannot('fly', 'away');
     err.object = 'Alice';
     expect(err.object).to.be('Alice');
     expect(err.message).to.be('Alice could not fly away. (No reason)');
@@ -122,54 +114,55 @@ describe('Cannot Exception', function(){
 
   //
   //
-  it('should have an action attribute', function(){
-    var err = Cannot('load', 'user');
+  it('should have an action attribute', () => {
+    const err = Cannot('load', 'user');
     expect(err.action).to.be('load');
   });
 
   //
   //
-  describe('#message', function(){
+  describe('#message', () => {
     //
     //
-    it('Should return a formulated error message', function(){
-
-      var err = Cannot(
+    it('Should return a formulated error message', () => {
+      const err = Cannot(
         'load',
         'something',
         'there is nothing to load'
       );
 
       expect(err).to.be.an('object');
-      var messageTest = err.message.match(/.*[\s]{1}could not load something, because there is nothing to load\./ig);
+      const messageTest = err.message.match(
+        /.*[\s]{1}could not load something, because there is nothing to load\./ig
+      );
       expect(messageTest).to.be.ok();
     });
 
     //
     //
-    it('Should include reason into the message', function(){
-
-      var err = Cannot(
+    it('Should include reason into the message', () => {
+      const err = Cannot(
         'load',
         'something',
         {
           code: 'fakeParent',
-          message: 'went wrong, omg!'
+          message: 'went wrong, omg!',
         }
       );
 
       expect(err).to.be.an('object');
       expect(err).to.have.property('code', 'cannot_load_something');
       expect(err).to.have.property('subject', 'something');
-      var messageTest = err.message.match(/.*[\s]{1}could not load something, because fakeParent\./ig);
+      const messageTest = err.message.match(
+        /.*[\s]{1}could not load something, because fakeParent\./ig
+      );
       expect(messageTest).to.be.ok();
     });
 
     //
     //
-    it('Should handle stacked exceptions', function(){
-
-      var err = Cannot(
+    it('Should handle stacked exceptions', () => {
+      const err = Cannot(
         'load',
         'something',
         Cannot(
@@ -177,7 +170,7 @@ describe('Cannot Exception', function(){
           'to internet',
           {
             code: 'ground_zero',
-            message: 'went wrong, omg!'
+            message: 'went wrong, omg!',
           }
         )
       );
@@ -185,16 +178,16 @@ describe('Cannot Exception', function(){
       expect(err).to.be.an('object');
       expect(err).to.have.property('code', 'cannot_load_something');
       expect(err).to.have.property('subject', 'something');
-      var messageTest = err.message.match(/.*[\s]{1}could not load something, because .*[\s]{1}could not connect to internet, because ground_zero\./ig);
+      // eslint-disable-next-line
+      const messageTest = err.message.match(/.*[\s]{1}could not load something, because .*[\s]{1}could not connect to internet, because ground_zero\./ig);
       expect(messageTest).to.be.ok();
     });
 
 
     //
     //
-    it('Should handle stacked exceptions (using because helper)', function(){
-
-      var err = Cannot(
+    it('Should handle stacked exceptions (using because helper)', () => {
+      const err = Cannot(
         'load',
         'something'
       ).because(
@@ -203,7 +196,7 @@ describe('Cannot Exception', function(){
           'to internet',
           {
             code: 'ground_zero',
-            message: 'went wrong, omg!'
+            message: 'went wrong, omg!',
           }
         )
       );
@@ -211,95 +204,83 @@ describe('Cannot Exception', function(){
       expect(err).to.be.an('object');
       expect(err).to.have.property('code', 'cannot_load_something');
       expect(err).to.have.property('subject', 'something');
-      var messageTest = err.message.match(/.*[\s]{1}could not load something, because .*[\s]{1}could not connect to internet, because ground_zero\./ig);
+      // eslint-disable-next-line
+      const messageTest = err.message.match(/.*[\s]{1}could not load something, because .*[\s]{1}could not connect to internet, because ground_zero\./ig);
       expect(messageTest).to.be.ok();
     });
-
-
   });
 
 
   //
   //
-  describe('because chain', function(){
+  describe('because chain', () => {
     //
     //
-    it('should add a reason to the exception', function(){
-
-      var err = Cannot('fly into', 'the sky').because('she is out of mushrooms');
+    it('should add a reason to the exception', () => {
+      const err = Cannot('fly into', 'the sky').because('she is out of mushrooms');
 
       expect(err).to.have.property('reason', 'she_is_out_of_mushrooms');
-
     });
 
 
     //
     // TODO: Allow adding multiple reasons 'because X and Y and Z'
-    it('should throw an error when setting the reason twice', function(){
+    it('should throw an error when setting the reason twice', () => {
+      const err = Cannot('fly into', 'the sky').because('she is out of mushrooms');
 
-      var err = Cannot('fly into', 'the sky').because('she is out of mushrooms');
-
-      expect(function(){
+      expect(() => {
         err.because('she has enough mushrooms');
-      }).to.throwException(function (ex) {
+      }).to.throwException((ex) => {
         expect(ex).to.have.property('code', 'cannot_overwrite_reason');
       });
-
     });
-
   });
 
   //
   //
-  describe('data attributes', function(){
+  describe('data attributes', () => {
     //
     //
-    it('should add a reason to the exception', function(){
-
-      var err = Cannot('fly into', 'the sky').addData({
-        key: 'value'
+    it('should add a reason to the exception', () => {
+      const err = Cannot('fly into', 'the sky').addData({
+        key: 'value',
       });
 
       expect(err).to.have.property('data');
       expect(err.data).to.be.an('object');
       expect(err.data).to.have.property('key', 'value');
-
     });
-
   });
 
   //
   //
-  describe('info attributes', function(){
+  describe('info attributes', () => {
     //
     //
-    it('should add info to the message if given', function(){
-
-      var err = Cannot('fly into', 'the sky').info('additional stuff');
+    it('should add info to the message if given', () => {
+      const err = Cannot('fly into', 'the sky').info('additional stuff');
 
       expect(err).to.have.property('_infoStr');
       expect(err._infoStr).to.be.a('string');
       expect(err._infoStr).to.be('additional stuff');
       expect(err.message).to.be('I could not fly into the sky. (No reason) (additional stuff)');
     });
-
   });
 
   //
   //
-  describe('stacked info attributes', function(){
+  describe('stacked info attributes', () => {
     //
     //
-    it('should add info to the message if given', function(){
-
-      var err1 = Cannot('overcome', 'gravity');
-      var err = Cannot('fly into', 'the sky').info('additional stuff').because(err1);
+    it('should add info to the message if given', () => {
+      const err1 = Cannot('overcome', 'gravity');
+      const err = Cannot('fly into', 'the sky').info('additional stuff').because(err1);
 
       expect(err).to.have.property('_infoStr');
       expect(err._infoStr).to.be.a('string');
       expect(err._infoStr).to.be('additional stuff');
+      // eslint-disable-next-line
       expect(err.message).to.be('I could not fly into the sky (additional stuff), because I could not overcome gravity. (No reason)');
     });
-
   });
 });

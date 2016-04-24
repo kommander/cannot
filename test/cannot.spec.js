@@ -36,6 +36,21 @@ describe('Module', () => {
 
   //
   //
+  it('Should have a stack trace', (done) => {
+    const err = new cannot(
+      'load',
+      'something',
+      'there is nothing to load'
+    );
+
+    expect(() => { throw err; }).to.throwException((ex) => {
+      expect(ex).to.have.property('stack');
+      done();
+    });
+  });
+
+  //
+  //
   it('Should allow construction without the "new" keyword', () => {
     const err = cannot(
       'load',

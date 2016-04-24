@@ -401,6 +401,55 @@ describe('cannot Exception', () => {
       expect(err.is.cannot('save', 'user').false()).to.be.ok();
     });
 
+    it('provides a convenience checker (verb/object, weak comparison)', () => {
+      const err = cannot('load', 'user');
+      expect(err.is.cannot('save', 'user') == false).to.be.ok(); // eslint-disable-line
+    });
+
+    it('provides a convenience checker (verb/object, if clause)', () => {
+      const err = cannot('load', 'user');
+      expect((() => {
+        if (err.is.cannot('save', 'user').true()) {
+          return false;
+        }
+        return true;
+      })()).to.be.ok();
+    });
+
+    // Make it work
+    //
+    // it('provides a convenience checker (verb/object, weak comparison, if clause)', () => {
+    //   const err = cannot('load', 'user');
+    //   expect((() => {
+    //     if (err.is.cannot('save', 'user')) {
+    //       return false;
+    //     }
+    //     return true;
+    //   })()).to.be.ok();
+    // });
+
+    it('provides a convenience checker (verb/object, weak comparison, reverse)', () => {
+      const err = cannot('load', 'user');
+      expect(err.is.cannot('save', 'user') == true).to.not.be.ok(); // eslint-disable-line
+    });
+
+    // Make it work
+    //
+    // it('provides a convenience checker (verb/object, hard comparison)', () => {
+    //   const err = cannot('load', 'user');
+    //   expect(err.is.cannot('save', 'user') === false).to.be.ok(); // eslint-disable-line
+    // });
+
+    it('provides a convenience checker (verb/object, hard comparison, !!)', () => {
+      const err = cannot('load', 'user');
+      expect(!!err.is.cannot('save', 'user')).to.be.ok(); // eslint-disable-line
+    });
+
+    it('provides a convenience checker (verb/object, hard comparison, !)', () => {
+      const err = cannot('load', 'user');
+      expect(!err.is.cannot('save', 'user')).to.not.be.ok(); // eslint-disable-line
+    });
+
     it('provides a convenience checker (verb/object, false, revert)', () => {
       const err = cannot('load', 'user').because(cannot('connect to', 'database'));
       expect(err.is.cannot('save', 'user').false()).to.be.ok();

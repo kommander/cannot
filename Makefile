@@ -53,7 +53,7 @@ setup:
 .PHONY: setup
 
 lint:
-	@node ./node_modules/eslint/bin/eslint.js ./**/*.js ./**/*.spec.js
+	@node ./node_modules/eslint/bin/eslint.js ./**/*.js ./**/**/*.js ./**/*.spec.js
 	@echo "ESLint done."
 .PHONY: lint
 

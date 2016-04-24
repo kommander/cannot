@@ -1,3 +1,5 @@
+'use strict';
+
 /* eslint-disable new-cap */
 const expect = require('expect.js');
 // const sinon = require('sinon');
@@ -30,6 +32,18 @@ describe('Extension API', () => {
       };
       cannot.use(ext);
     });
+
+    it('does not add an extension again', () => {
+      let counter = 0;
+      const ext = () => {
+        counter++;
+      };
+      const first = cannot.use(ext);
+      const second = cannot.use(ext);
+      expect(first).to.be.ok();
+      expect(second).to.not.be.ok();
+      expect(counter).to.be(1);
+    });
   });
 
   describe('extend()', () => {
@@ -47,7 +61,9 @@ describe('Extension API', () => {
         type: 'get',
       });
       const err = cannot('do', 'somethin');
-      err.newGetter = false;
+      expect(() => {
+        err.newGetter = false;
+      }).to.throwException();
       expect(err.newGetter).to.be.ok();
     });
   });

@@ -1,3 +1,17 @@
+//
+// Side NOTE:
+// How about a mix of handling/handlor:
+//      err.handle.cannot('load', 'user')
+//        .because('the database failed')
+//        .with(() => retry).then((result) => hooray());
+// Or Promisified:
+//      err.is.cannot('load', 'user')
+//        .because('the database failed')
+//        .then(retry)
+//        .then(hooray)
+//        .catch((err) => err.is.cannot('retry'))
+//        .then(failHard);
+
 /* eslint-disable new-cap */
 const expect = require('expect.js');
 // const sinon = require('sinon');
@@ -126,7 +140,7 @@ describe('Handlor Extension', () => {
       done();
     });
 
-    // it('react on specific reason with handler', (done) => {
+    // it('reacts on specific reason with handler', (done) => {
     //   const err = cannot('load', 'user').because('we have a reason');
     //
     //   err.handle('load', 'user')

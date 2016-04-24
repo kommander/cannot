@@ -66,6 +66,45 @@ describe('Extension API', () => {
       }).to.throwException();
       expect(err.newGetter).to.be.ok();
     });
+
+    it('does not add a getter multiple times', () => {
+      const getter = () => true;
+      const opts = {
+        type: 'get',
+      };
+      cannot.extend('newGetter2', getter, opts);
+      expect(() => {
+        cannot.extend('newGetter2', getter, opts);
+      }).to.throwException();
+    });
+
+    it('allows to remove a getter again', () => {
+      const getter = () => true;
+      const opts = {
+        type: 'get',
+      };
+      cannot.extend('newGetter3', getter, opts);
+      cannot.curtail('newGetter3');
+      expect(() => {
+        cannot.extend('newGetter3', getter, opts);
+      }).to.not.throwException();
+    });
+
+    it('does nothin when curtailing a non existing getter', () => {
+      const result = cannot.curtail('unknown_getter');
+      expect(result).to.not.be.ok();
+    });
+
+
+    it('does not add a non-function getter', () => {
+      const getter = 'non-function';
+      const opts = {
+        type: 'get',
+      };
+      expect(() => {
+        cannot.extend('newGetter3', getter, opts);
+      }).to.throwException();
+    });
   });
 
   describe('hook()', () => {
@@ -81,7 +120,6 @@ describe('Extension API', () => {
 
     it('allows to tap into instance creation', (done) => {
       const hook = (instance) => {
-        console.log(instance.code);
         expect(instance instanceof cannot).to.be.ok();
         done();
       };

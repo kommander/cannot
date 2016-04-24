@@ -3,7 +3,7 @@ cannot.js
 
 Easy and fun error handling, by enforcing human readable messages without compromising machine processing ability.
 
-[![Build Status](https://travis-ci.org/kommander/cannot.js.png)](https://travis-ci.org/kommander/cannot.js)  
+[![Build Status](https://travis-ci.org/kommander/cannot.js.png)](https://travis-ci.org/kommander/cannot.js) [![Coverage Status](https://coveralls.io/repos/github/kommander/cannot.js/badge.svg?branch=master)](https://coveralls.io/github/kommander/cannot.js?branch=master)
 
 
 ## Example

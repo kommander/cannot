@@ -50,6 +50,17 @@ describe('Handlor Extension', () => {
     });
   });
 
+  it('provides reason as first, full error instance as second argument', (done) => {
+    const err = cannot('load', 'user').because(cannot('do more', 'stuff'));
+
+    err.handle('load', 'user', (reason, err) => {
+      expect(reason).to.be('cannot_do_more_stuff');
+      expect(err).to.have.property('isError', true);
+      expect(err).to.have.property('code', 'cannot_load_user');
+      done();
+    });
+  });
+
   it('handles an error (one handler, reason, obj)', (done) => {
     const err = cannot('load', 'user').because(cannot('do more', 'stuff'));
 
@@ -79,11 +90,12 @@ describe('Handlor Extension', () => {
   // });
 
   describe('with interface', () => {
-    it('hands down the error', (done) => {
+    it('hands down the reason first, second the error', (done) => {
       const err = cannot('load', 'user').because('handlor wants to handle');
 
       err.handle('load', 'user')
-        .with((error) => {
+        .with((reason, error) => {
+          expect(reason).to.be('handlor_wants_to_handle');
           expect(error.reason).to.be('handlor_wants_to_handle');
           done();
         });

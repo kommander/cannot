@@ -1,9 +1,9 @@
 /* eslint-disable new-cap */
 const expect = require('expect.js');
 // const sinon = require('sinon');
-const cannot = require('../lib/cannot.js');
+const cannot = require('../../lib/cannot.js');
 
-describe('Module', () => {
+describe('Handling', () => {
   it('provides a convenience checker (verb/object)', () => {
     const err = cannot('load', 'user');
 

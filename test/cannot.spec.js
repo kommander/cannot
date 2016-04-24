@@ -6,7 +6,7 @@ const expect = require('expect.js');
 // const sinon = require('sinon');
 const cannot = require('../lib/cannot.js');
 
-describe('cannot Exception', () => {
+describe('Module', () => {
   //
   //
   it('exposes isError', () => {
@@ -163,6 +163,17 @@ describe('cannot Exception', () => {
   it('should have an verb attribute', () => {
     const err = cannot('load', 'user');
     expect(err.verb).to.be('load');
+  });
+
+  //
+  //
+  describe('codify', () => {
+    //
+    //
+    it('handles false input', () => {
+      const result = cannot.codify(null);
+      expect(result).to.be('');
+    });
   });
 
   //
@@ -418,6 +429,12 @@ describe('cannot Exception', () => {
 
       expect(err.is.cannot('load', 'user').because('database is down')).to.be.ok();
       expect(err.is.cannot('load', 'user').because('user not found')).to.not.be.ok();
+    });
+
+    it('allows to recover from a specific reason (error code, is.cannot, false cannot)', () => {
+      const err = cannot('load', 'user').because('database is down');
+
+      expect(err.is.cannot('save', 'user').because('database is down')).to.not.be.ok();
     });
 
     it('provides a convenience checker (verb/object, is.cannot)', () => {

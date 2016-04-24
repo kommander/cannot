@@ -67,10 +67,10 @@ describe('Handlor Extension', () => {
   it('provides reason as first, full error instance as second argument', (done) => {
     const err = cannot('load', 'user').because(cannot('do more', 'stuff'));
 
-    err.handle('load', 'user', (reason, err) => {
+    err.handle('load', 'user', (reason, error) => {
       expect(reason).to.be('cannot_do_more_stuff');
-      expect(err).to.have.property('isError', true);
-      expect(err).to.have.property('code', 'cannot_load_user');
+      expect(error).to.have.property('isError', true);
+      expect(error).to.have.property('code', 'cannot_load_user');
       done();
     });
   });
@@ -146,8 +146,8 @@ describe('Handlor Extension', () => {
       err.handle('load', 'user')
         .with('connection issues', () => false)
         .with('something else', () => false)
-        .with('we have a reason', (reason, err) => {
-          expect(err).to.have.property('isError', true);
+        .with('we have a reason', (reason, error) => {
+          expect(error).to.have.property('isError', true);
           done();
         })
         .with(() => false)

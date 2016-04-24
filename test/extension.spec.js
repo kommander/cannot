@@ -102,7 +102,7 @@ describe('Extension API', () => {
         type: 'get',
       };
       expect(() => {
-        cannot.extend('newGetter3', getter, opts);
+        cannot.extend('some_unique_getter234234234', getter, opts);
       }).to.throwException();
     });
   });
@@ -126,6 +126,21 @@ describe('Extension API', () => {
       cannot.hook('create', hook);
       cannot('do', 'something');
       cannot.unhook('create', hook);
+    });
+
+    it('throws for non-existing hook name', () => {
+      const hook = () => true;
+      expect(() => {
+        cannot.hook('notAtAllAHook', hook);
+      }).to.throwException();
+    });
+
+    it('throws for existing hooks', () => {
+      const hook = () => true;
+      cannot.hook('create', hook);
+      expect(() => {
+        cannot.hook('create', hook);
+      }).to.throwException();
     });
   });
 });

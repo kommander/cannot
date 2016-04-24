@@ -68,45 +68,50 @@ describe('Handlor Extension', () => {
     done();
   });
 
-  it('throws when we try to register a non-function/empty handlor', (done) => {
-    const err = cannot('load', 'user').because(cannot('do more', 'stuff'));
+  // DEACTIVATED FOR THE .with() INTERFACE
+  // it('throws when we try to register a non-function/empty handlor', (done) => {
+  //   const err = cannot('load', 'user').because(cannot('do more', 'stuff'));
+  //
+  //   expect(() => {
+  //     err.handle('load', 'user', null);
+  //   }).to.throwException();
+  //   done();
+  // });
 
-    expect(() => {
-      err.handle('load', 'user', null);
-    }).to.throwException();
-    done();
+  describe('with interface', () => {
+    it('hands down the error', (done) => {
+      const err = cannot('load', 'user').because('handlor wants to handle');
+
+      err.handle('load', 'user')
+        .with((error) => {
+          expect(error.reason).to.be('handlor_wants_to_handle');
+          done();
+        });
+    });
+
+    it('calls in error context', (done) => {
+      const err = cannot('load', 'user').because('handlor wants to handle');
+
+      err.handle('load', 'user')
+        .with(function handler() {
+          expect(this).to.have.property('isError', true);
+          expect(this).to.have.property('code', 'cannot_load_user');
+          done();
+        });
+    });
+
+    it('convenience methods to handle an error can be stacked', (done) => {
+      const err = cannot('load', 'user');
+
+      err.handle('load', 'user')
+        .with(() => false)
+        .with(() => false)
+        .with(() => true)
+        .with(() => false)
+        .with(() => true)
+        .with(() => done('not called anymore'));
+
+      done();
+    });
   });
-
-  //
-  // it('convenience methods to handle an error can be stacked', () => {
-  //   const err = cannot('load', 'user');
-  //
-  //   err.handle('load', 'user')
-  //     .with((reason) => {
-  //       return false;
-  //     })
-  //     .with(() => {
-  //       return true;
-  //     })
-  //     .with(() => {
-  //       done('not called anymore')
-  //     });
-  // });
-  //
-  // it('provides handler interface for a specific reason', () => {
-  //   const err = cannot('load', 'user')
-  //     .because(cannot('connect to', 'database'));
-  //
-  //   err.handle.cannot('load', 'user')
-  //     .because.cannot('connect to', 'database')
-  //     .with(() => {
-  //       return false;
-  //     })
-  //     .with(() => {
-  //       return true;
-  //     })
-  //     .with(() => {
-  //       done('not called anymore')
-  //     });
-  // });
 });

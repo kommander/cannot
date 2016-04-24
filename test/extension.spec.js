@@ -142,5 +142,12 @@ describe('Extension API', () => {
         cannot.hook('create', hook);
       }).to.throwException();
     });
+
+    it('throws for non-existing unhook name', () => {
+      const hook = () => true;
+      expect(() => {
+        cannot.unhook('notAtAllAHook', hook);
+      }).to.throwException();
+    });
   });
 });

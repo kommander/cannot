@@ -17,7 +17,8 @@
     "mocha": "^2.3.4",
     "semver": "^5.1.0",
     "should": "^8.1.1",
-    "sinon": "^1.17.3"
+    "sinon": "^1.17.3",
+    "eslint-plugin-react": "^4.3.0"
   },
   "scripts": {
     "test": "./node_modules/.bin/mocha --require should --reporter tap"

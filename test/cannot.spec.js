@@ -174,6 +174,12 @@ describe('Module', () => {
     expect(err.reason).to.be('error_what_the_heck');
   });
 
+  it('should handle null and undefined reasons', () => {
+    const err = cannot('do', 'something').because(null);
+
+    expect(err.reason).to.be('');
+  });
+
   it('should be possible to set the subject', () => {
     const err = cannot('fly', 'away');
     err.subject = 'Alice';

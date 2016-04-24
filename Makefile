@@ -43,6 +43,10 @@ mincov: coverage
 	#@node ./node_modules/istanbul/lib/cli.js check-coverage --statements 90 --functions 90 --lines 90 --branches 90
 .PHONY: mincov
 
+coveralls:
+	@node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha --report lcovonly -- --recursive -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+.PHONY: coveralls
+
 setup:
 	@echo "Installing Development dependencies."
 	@NODE_ENV=development && npm install --no-shrinkwrap

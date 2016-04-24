@@ -45,6 +45,7 @@ describe('Module', () => {
 
     expect(() => { throw err; }).to.throwException((ex) => {
       expect(ex).to.have.property('stack');
+      expect(ex.stack.split('\n').length).to.be(11);
       done();
     });
   });

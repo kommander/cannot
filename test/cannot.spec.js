@@ -474,10 +474,13 @@ describe('cannot Exception', () => {
       expect(err.is.cannot('load', 'user')
         .because.cannot('find', 'user')).to.not.be.ok();
     });
-    //
-    // it('checks case insensitive', (done) => {
-    //   done('implement me');
-    // });
+
+    it('checks case insensitive', () => {
+      const err = cannot('load', 'user').because('database is down');
+
+      expect(err.is.cannot('lOaD', 'UsEr').because('DataBase is dOwn')).to.be.ok();
+      expect(err.is.cannot('loAd', 'uSer').because('usEr not fOund')).to.not.be.ok();
+    });
 
     // ERROR HANDLING INTERFACE SUGGESTIONS
     //

@@ -9,6 +9,17 @@ const cannot = require('../lib/cannot.js');
 describe('cannot Exception', () => {
   //
   //
+  it('exposes isError', () => {
+    const err = new cannot(
+      'load',
+      'something'
+    );
+
+    expect(err).to.have.property('isError', true);
+  });
+
+  //
+  //
   it('Should create an exception from arguments', () => {
     const err = new cannot(
       'load',
@@ -53,6 +64,18 @@ describe('cannot Exception', () => {
     const messageTest = err.message.match(/.*[\s]{1}could not load something\. \(No reason\)/ig);
     expect(messageTest).to.be.ok();
   });
+
+  //
+  //
+  it('should get and set a string reason', () => {
+    const err = new cannot(
+      'load',
+      'something'
+    ).because('string reason');
+
+    expect(err).to.have.property('reason', 'string_reason');
+  });
+
 
   //
   //
@@ -353,9 +376,9 @@ describe('cannot Exception', () => {
       expect(err.is('cannot save user')).to.not.be.ok();
     });
 
+    //
     it('provides a convenience checker (verb / object, assert.cannot, because)', () => {
-      const err = cannot('load', 'user')
-        .because('database is down');
+      const err = cannot('load', 'user').because('database is down');
 
       expect(err.assert.cannot('load', 'user')).to.have.property('because');
     });
@@ -466,13 +489,24 @@ describe('cannot Exception', () => {
       expect(err.is.cannot('save', 'user').false()).to.be.ok();
     });
 
+    //
     it('allows to recover from a specific reason (verb/object, because.cannot)', () => {
       const err = cannot('load', 'user').because(cannot('connect to', 'database'));
+      const check = err.is.cannot('load', 'user').because.cannot('connect to', 'database');
+      expect(check).to.be.ok();
+    });
 
-      expect(err.is.cannot('load', 'user')
-        .because.cannot('connect to', 'database')).to.be.ok();
-      expect(err.is.cannot('load', 'user')
-        .because.cannot('find', 'user')).to.not.be.ok();
+    //
+    it('allows to recover from a specific reason (verb/object, assert.cannot)', () => {
+      const err = cannot('load', 'user').because(cannot('connect to', 'database'));
+      const check = err.assert.cannot('load', 'user').because.cannot('connect to', 'database');
+      expect(check).to.be.ok();
+    });
+
+    it('recovers from a specific reason (verb/object, because.cannot, false cannot)', () => {
+      const err = cannot('load', 'user').because(cannot('connect to', 'database'));
+      const check = err.is.cannot('save', 'user').because.cannot('connect to', 'database');
+      expect(check).to.not.be.ok();
     });
 
     it('checks case insensitive', () => {

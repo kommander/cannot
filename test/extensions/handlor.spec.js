@@ -140,19 +140,19 @@ describe('Handlor Extension', () => {
       done();
     });
 
-    // it('reacts on specific reason with handler', (done) => {
-    //   const err = cannot('load', 'user').because('we have a reason');
-    //
-    //   err.handle('load', 'user')
-    //     .with('connection issues', () => false)
-    //     .with('something else', () => false)
-    //     .with('we have a reason', (err) => {
-    //       expect(err).to.have.property('isError', true);
-    //       done();
-    //     })
-    //     .with(() => false)
-    //     .with(() => true)
-    //     .with(() => done('not called anymore'));
-    // });
+    it('reacts on specific reason with handler', (done) => {
+      const err = cannot('load', 'user').because('we have a reason');
+
+      err.handle('load', 'user')
+        .with('connection issues', () => false)
+        .with('something else', () => false)
+        .with('we have a reason', (reason, err) => {
+          expect(err).to.have.property('isError', true);
+          done();
+        })
+        .with(() => false)
+        .with(() => true)
+        .with(() => done('not called anymore'));
+    });
   });
 });

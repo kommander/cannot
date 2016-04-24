@@ -16,6 +16,15 @@ describe('Handlor Extension', () => {
     });
   });
 
+  it('provides the handlor interface swell', (done) => {
+    const err = cannot('load', 'user').because('stuff');
+
+    err.handlor('load', 'user', 'stuff', (reason) => {
+      expect(reason).to.be('stuff');
+      done();
+    });
+  });
+
   it('handles an error (one handler, reason)', (done) => {
     const err = cannot('load', 'user').because('stuff');
 

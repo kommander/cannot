@@ -1,10 +1,14 @@
 cannot.js
 =========
 
-Easy and fun error handling, by enforcing human readable messages without compromising machine processing ability.
+Simple error handling, aiding in creating consistently human readable messages without compromising machine processing ability.
 
 [![Build Status](https://travis-ci.org/kommander/cannot.js.png)](https://travis-ci.org/kommander/cannot.js) [![Coverage Status](https://coveralls.io/repos/github/kommander/cannot.js/badge.svg?branch=master)](https://coveralls.io/github/kommander/cannot.js?branch=master)
 
+## Installation  
+```
+$ npm install cannot
+```
 
 ## Example
 
@@ -27,11 +31,6 @@ throw Cannot('attend', 'the party').because('I fell into a rabbit hole');
 
 The generated message aims to be as user friendly as possible, without you having to write it manually. All error specific data which you need to handle it elsewhere in your application, is derived from your simple declaration.  
 The `because` api helps you to specify a reason, which allows you to pass on error objects as well.
-
-## Installation  
-```
-$ npm install cannot
-```
 
 ### Code Editor Snippets
 The package includes auto completion snippets for _Sublime Text 2_ to support the _Cannot.js_ paradigm.

@@ -1,7 +1,7 @@
 {
   "name": "cannot",
   "description": "Easy error handling, by enforcing human readable messages without compromising machine processing ability.",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "author": "Sebastian Herrlinger <sebastian@kosmokommando.com>",
   "license": "MIT",
   "repository": {

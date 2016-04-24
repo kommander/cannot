@@ -1,6 +1,6 @@
 {
   "name": "cannot",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "dependencies": {
     "eslint-plugin-jsx-a11y": {
       "version": "0.6.2",

@@ -105,6 +105,18 @@ describe('Extension API', () => {
         cannot.extend('some_unique_getter234234234', getter, opts);
       }).to.throwException();
     });
+
+    it('allows to extend the current instance', (done) => {
+      const hook = (instance) => {
+        cannot.unhook('create', hook);
+        const ext = () => true;
+        instance.extend('someNewInstanceProp', ext);
+        expect(instance).to.have.property('someNewInstanceProp', ext);
+        done();
+      };
+      cannot.hook('create', hook);
+      cannot('do', 'stuff');
+    });
   });
 
   describe('hook()', () => {

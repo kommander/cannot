@@ -119,11 +119,13 @@ describe('cannot Exception', () => {
     expect(err.reason).to.be('something_else');
   });
 
-  it('should handle non-string reasons without _code_ attribute', () => {
+  it('should NOT handle non-string reasons without _code_ attribute', () => {
     const err = cannot('do', 'something');
-    err.reason = { none: 'something_else' };
-    expect(err.reason).to.be.an('object');
-    expect(err.reason).to.have.property('none', 'something_else');
+    const cause = { none: 'something_else' };
+
+    expect(() => {
+      err.reason = cause;
+    }).to.throwException();
   });
 
   it('should be possible to set the subject', () => {
@@ -374,6 +376,15 @@ describe('cannot Exception', () => {
 
     it('allows to recover from a specific reason (error code, assert.cannot)', () => {
       const err = cannot('load', 'user').because('database is down');
+
+      expect(err.assert.cannot('load', 'user').because('database is down')).to.be.ok();
+      expect(err.assert.cannot('load', 'user').because('user not found')).to.not.be.ok();
+    });
+
+    it('recovers from a specific reason (error code, assert.cannot, other err object)', () => {
+      const err = cannot('load', 'user').because({
+        code: 'database_is_down',
+      });
 
       expect(err.assert.cannot('load', 'user').because('database is down')).to.be.ok();
       expect(err.assert.cannot('load', 'user').because('user not found')).to.not.be.ok();

@@ -3,7 +3,7 @@ const expect = require('expect.js');
 // const sinon = require('sinon');
 const cannot = require('../../lib/cannot.js');
 
-describe('Handling', () => {
+describe('Handling/Assert Extension', () => {
   it('provides a convenience checker (verb/object)', () => {
     const err = cannot('load', 'user');
 

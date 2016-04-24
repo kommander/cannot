@@ -158,13 +158,20 @@ describe('Module', () => {
     expect(err.reason).to.be('something_else');
   });
 
-  it('should NOT handle non-string reasons without _code_ attribute', () => {
+  it('should NOT handle non-string reasons without _code_ attribute (except Errors)', () => {
     const err = cannot('do', 'something');
     const cause = { none: 'something_else' };
 
     expect(() => {
       err.reason = cause;
     }).to.throwException();
+  });
+
+  it('should handle non-string reasons of type Error', () => {
+    const err = cannot('do', 'something');
+    const cause = new Error('What the heck');
+    err.reason = cause;
+    expect(err.reason).to.be('error_what_the_heck');
   });
 
   it('should be possible to set the subject', () => {

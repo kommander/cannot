@@ -3,6 +3,11 @@ const expect = require('expect.js');
 // const sinon = require('sinon');
 const cannot = require('../../lib/cannot.js');
 
+//
+// TODO: Make assert really assert (throw if it fails)
+//       -> .is will then only evaluate
+//
+
 describe('Handling/Assert Extension', () => {
   it('provides a convenience checker (verb/object)', () => {
     const err = cannot('load', 'user');

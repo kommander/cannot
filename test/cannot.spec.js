@@ -6,6 +6,10 @@ const expect = require('expect.js');
 // const sinon = require('sinon');
 const cannot = require('../lib/cannot.js');
 
+//
+// TODO: Make sure .message, .code and .reason is enumerable
+//
+
 describe('Module', () => {
   //
   //

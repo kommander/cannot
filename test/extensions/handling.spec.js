@@ -114,6 +114,7 @@ describe('Handling/Assert Extension', () => {
 
   // Make it work
   //
+  it('provides a convenience checker (verb/object, weak comparison, if clause)');
   // it('provides a convenience checker (verb/object, weak comparison, if clause)', () => {
   //   const err = cannot('load', 'user');
   //   expect((() => {
@@ -131,6 +132,7 @@ describe('Handling/Assert Extension', () => {
 
   // Make it work
   //
+  it('provides a convenience checker (verb/object, hard comparison)');
   // it('provides a convenience checker (verb/object, hard comparison)', () => {
   //   const err = cannot('load', 'user');
   //   expect(err.is.cannot('save', 'user') === false).to.be.ok(); // eslint-disable-line

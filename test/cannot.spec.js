@@ -81,9 +81,19 @@ describe('Module', () => {
     expect(err).to.be.an('object');
     expect(err).to.have.property('code', 'cannot_load_something');
     expect(err).to.have.property('object', 'something');
+    // May return "No reason." here as well
+    expect(err).to.have.property('reason', '');
     const messageTest = err.message.match(/.*[\s]{1}could not load something\. \(No reason\)/ig);
     expect(messageTest).to.be.ok();
   });
+
+  //
+  //
+  it('should always add " (No reason)." to the message if none was given"');
+
+  //
+  //
+  it('Dev Mode: should add " (No reason, {{ sarcasm }})." to the message if none was given"');
 
   //
   //

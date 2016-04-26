@@ -35,7 +35,7 @@
   ],
   "main": "./lib/cannot.js",
   "engines": {
-    "node": ">= 4.4.3"
+    "node": ">= 4.4.3 <5.9.0"
   },
   "publishConfig": {
     "registry": "http://registry.npmjs.org"

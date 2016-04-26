@@ -42,6 +42,10 @@ test:
 		--reporter spec
 .PHONY: test
 
+report: coverage
+	@echo 'Opening default browser with coverage report.'
+	@open ./coverage/lcov-report/index.html
+
 coverage:
 	@echo 'Creating coverage report.'
 	@node ./node_modules/istanbul/lib/cli.js cover \

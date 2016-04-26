@@ -87,10 +87,11 @@ clean:
 	@echo "Housekeeping..."
 	rm -rf ./node_modules
 	rm -rf ./coverage
+	git checkout -f
 	@echo "Clean."
 .PHONY: clean
 
-dev: setup hooks lint test
+dev: clean setup hooks lint test coverage
 
 VERSION = $(shell node -pe 'require("./package.json").version')
 release-patch: NEXT_VERSION = $(shell node -pe 'require("semver").inc("$(VERSION)", "patch")')

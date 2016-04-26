@@ -83,6 +83,13 @@ hooks:
 	chmod +x ./.git/hooks/pre-push
 .PHONY: hooks
 
+clean:
+	@echo "Housekeeping..."
+	rm -rf ./node_modules
+	rm -rf ./coverage
+	@echo "Clean."
+.PHONY: clean
+
 dev: setup hooks lint test
 
 VERSION = $(shell node -pe 'require("./package.json").version')

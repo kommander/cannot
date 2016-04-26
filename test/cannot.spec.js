@@ -118,6 +118,17 @@ describe('Core', () => {
 
   //
   //
+  it("provides `return cannot.promise('to load', 'user').because({{ reason }});`");
+
+  //
+  //
+  // Something like...?
+  // .catch(cannot => cannot.promise('to load', 'user').then(handle => Promise.resolve()...)
+  // .catch(cannot => cannot.promise('to load', 'user').because({{ reason }}).then(...)
+  it("adding resolvers: .catch(cannot => cannot.promise('to load', 'user').then(...)");
+
+  //
+  //
   it('should throw an Error if no verb is given', () => {
     expect(() => {
       cannot(null, 'user');
@@ -307,7 +318,7 @@ describe('Core', () => {
 
     //
     //
-    it('Dev Mode: should add " (No reason, {{ sarcasm }})." to the message if none was given"');
+    // it('Dev Mode: should add " (No reason, {{ sarcasm }})." to the message if none was given"');
   });
 
 

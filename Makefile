@@ -59,7 +59,7 @@ mincov: coverage
 
 specs:
 	@echo 'Creating specs file from tests.'
-	@make test > specs
+	make test > specs
 	@echo 'Done.'
 .PHONY: specs
 

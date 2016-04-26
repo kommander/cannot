@@ -9,6 +9,8 @@ Checking behaviour.
     ✓ Should work without a reason
     ✓ should get and set a string reason
     ✓ Should work with promises
+    - provides `return cannot.promise('to load', 'user').because({{ reason }});`
+    - adding resolvers: .catch(cannot => cannot.promise('to load', 'user').then(...)
     ✓ should throw an Error if no verb is given
     ✓ should throw an Error if no object is given
     ✓ should be configurable
@@ -27,7 +29,6 @@ Checking behaviour.
       ✓ Should handle stacked exceptions
       ✓ Should handle stacked exceptions (using because helper)
       - should always add " (No reason)." to the message if none was given"
-      - Dev Mode: should add " (No reason, {{ sarcasm }})." to the message if none was given"
     because chain
       ✓ should add a reason to the exception
       ✓ should throw an error when setting the reason twice
@@ -111,6 +112,6 @@ Checking behaviour.
       ✓ reacts on specific reason with handler
 
 
-  81 passing (107ms)
-  8 pending
+  81 passing (106ms)
+  9 pending
 

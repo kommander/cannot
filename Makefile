@@ -6,9 +6,9 @@ usage:
 	@echo 'Core tasks                       : Description'
 	@echo '--------------------             : -----------'
 	@echo 'make dev                         : Setup repository for development (install, hooks)'
+	@echo 'make lint                        : Run linter'
 	@echo 'make test                        : Run tests'
 	@echo 'make coverage                    : Create test coverage report to ./coverage'
-	@echo 'make release                     : Publish version-tag matching package.json'
 
 	@echo ''
 
@@ -16,6 +16,13 @@ usage:
 	@echo '--------------------             : -----------'
 	@echo 'make hooks                       : Creates git hooks to run tests before a push (done by make dev)'
 	@echo 'make setup                       : Install all necessary dependencies'
+
+	@echo ''
+
+	@echo 'Release tasks                 		: Description'
+	@echo '--------------------             : -----------'
+	@echo 'make specs                       : Run tests and put the results into the specs file'
+	@echo 'make release                     : Publish version-tag matching package.json'
 	@echo 'make release-patch               : Increment package version 0.0.1 -> 0.0.2 then release'
 	@echo 'make release-minor               : Increment package version 0.1.0 -> 0.2.0 then release'
 	@echo 'make release-major               : Increment package version 1.0.0 -> 2.0.0 then release'
@@ -23,8 +30,10 @@ usage:
 
 	@echo ''
 # -
+help: usage
 
 test:
+	@echo 'Checking behaviour.'
 	@./node_modules/.bin/mocha $(TEST_FOLDERS) \
 		--require should \
 		--require "./dev/test.inject.js" \
@@ -34,6 +43,7 @@ test:
 .PHONY: test
 
 coverage:
+	@echo 'Creating coverage report.'
 	@node ./node_modules/istanbul/lib/cli.js cover \
 	./node_modules/.bin/_mocha -- $(TEST_FOLDERS) --require should --require "./dev/test.inject.js" --recursive --reporter dot
 .PHONY: coverage
@@ -42,6 +52,12 @@ mincov: coverage
 	@echo 'WARN: Ignoring broken check-coverage for now, waiting for final fixed istanbul 1.0.0'
 	#@node ./node_modules/istanbul/lib/cli.js check-coverage --statements 90 --functions 90 --lines 90 --branches 90
 .PHONY: mincov
+
+specs:
+	@echo 'Creating specs file from tests.'
+	@make test > specs
+	@echo 'Done.'
+.PHONY: specs
 
 coveralls:
 	@node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha --report lcovonly -- --recursive -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
@@ -63,7 +79,7 @@ hooks:
 	chmod +x ./.git/hooks/pre-push
 .PHONY: hooks
 
-dev: setup hooks
+dev: setup hooks lint test
 
 VERSION = $(shell node -pe 'require("./package.json").version')
 release-patch: NEXT_VERSION = $(shell node -pe 'require("semver").inc("$(VERSION)", "patch")')
@@ -82,7 +98,7 @@ prerelease-alpha: release
 prerelease-beta: release
 prerelease-rc: release
 
-release: test
+release: mincov test specs
 	@printf "Current version is $(VERSION). This will publish version $(NEXT_VERSION). Press [enter] to continue." >&2
 	@read
 	@node -e '\
@@ -92,6 +108,7 @@ release: test
 		require("fs").writeFileSync("./package.json", s);'
 		@NODE_ENV=production npm shrinkwrap
 		@git add npm-shrinkwrap.json
+		@git add specs
 		@git commit package.json npm-shrinkwrap.json -m 'Version $(NEXT_VERSION)'
 		@git tag -a "v$(NEXT_VERSION)" -m "Version $(NEXT_VERSION)"
 	@git push --tags origin HEAD:master

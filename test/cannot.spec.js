@@ -10,7 +10,7 @@ const cannot = require('../lib/cannot.js');
 // TODO: Make sure .message, .code and .reason is enumerable
 //
 
-describe('Module', () => {
+describe('Core', () => {
   //
   //
   it('exposes isError', () => {
@@ -86,14 +86,6 @@ describe('Module', () => {
     const messageTest = err.message.match(/.*[\s]{1}could not load something\. \(No reason\)/ig);
     expect(messageTest).to.be.ok();
   });
-
-  //
-  //
-  it('should always add " (No reason)." to the message if none was given"');
-
-  //
-  //
-  it('Dev Mode: should add " (No reason, {{ sarcasm }})." to the message if none was given"');
 
   //
   //
@@ -203,7 +195,7 @@ describe('Module', () => {
 
   //
   //
-  it('should have an verb attribute', () => {
+  it('should have a verb attribute', () => {
     const err = cannot('load', 'user');
     expect(err.verb).to.be('load');
   });
@@ -308,6 +300,14 @@ describe('Module', () => {
       const messageTest = err.message.match(/.*[\s]{1}could not load something, because .*[\s]{1}could not connect to internet, because ground_zero\./ig);
       expect(messageTest).to.be.ok();
     });
+
+    //
+    //
+    it('should always add " (No reason)." to the message if none was given"');
+
+    //
+    //
+    it('Dev Mode: should add " (No reason, {{ sarcasm }})." to the message if none was given"');
   });
 
 
@@ -402,5 +402,19 @@ describe('Module', () => {
       // eslint-disable-next-line
       expect(err.message).to.be('I could not fly into the sky (additional stuff), because I could not overcome gravity. (No reason)');
     });
+  });
+
+  //
+  //
+  describe('Serialize', () => {
+    it('should provide a json format wrapper');
+    it('should provide a binary format wrapper');
+  });
+
+  //
+  //
+  describe('Security', () => {
+    it('has to provide facilities to whitelist allowed output');
+    it('should distinct between user/dev/admin levels ');
   });
 });

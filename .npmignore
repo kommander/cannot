@@ -9,3 +9,7 @@ Makefile
 dev
 *.log
 coverage
+.editorconfig
+.eslintignore
+.eslintrc
+.travis.yml

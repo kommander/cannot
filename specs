@@ -1,0 +1,116 @@
+Checking behaviour.
+
+
+  Core
+    ✓ exposes isError
+    ✓ Should create an exception from arguments
+    ✓ Should have a stack trace
+    ✓ Should allow construction without the "new" keyword
+    ✓ Should work without a reason
+    ✓ should get and set a string reason
+    ✓ Should work with promises
+    ✓ should throw an Error if no verb is given
+    ✓ should throw an Error if no object is given
+    ✓ should be configurable
+    ✓ should work without prefix
+    ✓ should handle non-string reasons
+    ✓ should NOT handle non-string reasons without _code_ attribute (except Errors)
+    ✓ should handle non-string reasons of type Error
+    ✓ should handle null and undefined reasons
+    ✓ should be possible to set the subject
+    ✓ should have a verb attribute
+    codify
+      ✓ handles false input
+    #message
+      ✓ Should return a formulated error message
+      ✓ Should include reason into the message
+      ✓ Should handle stacked exceptions
+      ✓ Should handle stacked exceptions (using because helper)
+      - should always add " (No reason)." to the message if none was given"
+      - Dev Mode: should add " (No reason, {{ sarcasm }})." to the message if none was given"
+    because chain
+      ✓ should add a reason to the exception
+      ✓ should throw an error when setting the reason twice
+    data attributes
+      ✓ should add data to the exception
+      ✓ data should return null if none was given
+      ✓ does not overwrite with empty data
+    info attributes
+      ✓ should add info to the message if given
+    stacked info attributes
+      ✓ should add info to the message if given
+    Serialize
+      - should provide a json format wrapper
+      - should provide a binary format wrapper
+    Security
+      - has to provide facilities to whitelist allowed output
+      - should distinct between user/dev/admin levels 
+
+  Extension API
+    ✓ exposes the use() API
+    ✓ exposes the extend() API
+    ✓ exposes the hook() API
+    use()
+      ✓ calls the extension method with Cannot
+      ✓ does not add an extension again
+    extend()
+      ✓ does not overwrite existing prototypes
+      ✓ allows to add a getter
+      ✓ does not add a getter multiple times
+      ✓ allows to remove a getter again
+      ✓ does nothin when curtailing a non existing getter
+      ✓ does not add a non-function getter
+      ✓ allows to extend the current instance
+    hook()
+      ✓ allows to remove a hook again
+      ✓ allows to tap into instance creation
+      ✓ throws for non-existing hook name
+      ✓ throws for existing hooks
+      ✓ throws for non-existing unhook name
+
+  Handling/Assert Extension
+    ✓ provides a convenience checker (verb/object)
+    ✓ provides a convenience checker (multiword verb/object)
+    ✓ provides a convenience checker (error code)
+    ✓ provides a convenience checker (verb / object, assert.cannot, because)
+    ✓ provides a convenience checker (verb/object, is.cannot, because)
+    ✓ assert is bound correctly to this.is
+    ✓ allows to recover from a specific reason (error code, assert.cannot)
+    ✓ recovers from a specific reason (error code, assert.cannot, other err object)
+    ✓ allows to recover from a specific reason (error code, is.cannot)
+    ✓ allows to recover from a specific reason (error code, is.cannot, false cannot)
+    ✓ provides a convenience checker (verb/object, is.cannot)
+    ✓ provides a convenience checker (verb/object, true())
+    ✓ provides a convenience checker (verb/object, false())
+    ✓ provides a convenience checker (verb/object, weak comparison)
+    ✓ provides a convenience checker (verb/object, if clause)
+    - provides a convenience checker (verb/object, weak comparison, if clause)
+    ✓ provides a convenience checker (verb/object, weak comparison, reverse)
+    - provides a convenience checker (verb/object, hard comparison)
+    ✓ provides a convenience checker (verb/object, hard comparison, !!)
+    ✓ provides a convenience checker (verb/object, hard comparison, !)
+    ✓ provides a convenience checker (verb/object, false, revert)
+    ✓ allows to recover from a specific reason (verb/object, because.cannot)
+    ✓ allows to recover from a specific reason (verb/object, assert.cannot)
+    ✓ recovers from a specific reason (verb/object, because.cannot, false cannot)
+    ✓ checks case insensitive
+
+  Handlor Extension
+    ✓ provides a convenience method to handle an error (one handler)
+    ✓ provides the handlor interface swell
+    ✓ handles an error (one handler, reason)
+    ✓ handles an error (one handler, reason, multiword)
+    ✓ handles an error (one handler, reason, stacked error)
+    ✓ provides reason as first, full error instance as second argument
+    ✓ handles an error (one handler, reason, obj)
+    ✓ handles an error (one handler, obj, obj)
+    with interface
+      ✓ hands down the reason first, second the error
+      ✓ calls in error context
+      ✓ convenience methods to handle an error can be stacked
+      ✓ reacts on specific reason with handler
+
+
+  81 passing (107ms)
+  8 pending
+

@@ -105,15 +105,25 @@ To start developing, check out this repository and do:
 $ make dev
 ```
 
-_make dev_ installs the initial dev dependencies and sets up git hooks, to run tests before you can push. Happy hacking!
+Installs the initial dev dependencies, sets up git hooks and checks linting to be able run mincov before you push. Happy hacking!
 
-## Tests & Coverage
+## Tests
 We are handling errors, not producing them. That said, it is unavoidable to run into issues, but a _100%_ test coverage helps making sure the demons don't return.
 [Mocha](http://mochajs.org) is the test runner in use,
 extended by [expect.js](https://github.com/Automattic/expect.js) and [should](https://shouldjs.github.io) within a [BDD](https://en.wikipedia.org/wiki/Behavior-driven_development) setup.
 ```
 $ make test
 ```
+
+## Specs
+To add a feature to development, write a test to add to the spec in a feature branch.
+```
+$ make specs
+```
+
+Creates the specs file. `cat specs`.
+
+## Coverage
 
 To generate a test coverage report, it uses [istanbul](https://gotwarlost.github.io/istanbul/).
 ```

@@ -72,7 +72,7 @@ coveralls:
 
 setup:
 	@echo "Installing Development dependencies."
-	@NODE_ENV=development && npm install --no-shrinkwrap
+	@NODE_ENV=development npm install --only=dev --no-shrinkwrap
 .PHONY: setup
 
 lint:

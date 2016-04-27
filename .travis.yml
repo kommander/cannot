@@ -4,6 +4,9 @@ node_js:
   - "5.0.0"
   - "5.4.0"
   - "5.9.0"
+  - "5.9.1"
+  - "5.11.0"
+  - "6.0.0"
 before_script:
   - NODE_ENV=development npm install --only=dev --no-shrinkwrap
 after_success: 'npm run coveralls'

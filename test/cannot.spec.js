@@ -110,6 +110,17 @@ describe('Core', () => {
 
   //
   //
+  it('behaves like a stringified Error', () => {
+    const err = new cannot(
+      'load',
+      'something'
+    ).because('string reason');
+
+    expect(err.toString()).to.be('Error: I could not load something, because string reason.');
+  });
+
+  //
+  //
   it('has hiddens', () => {
     const err = new cannot(
       'load',

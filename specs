@@ -21,6 +21,7 @@ Checking behaviour.
     ✓ should NOT handle non-string reasons without _code_ attribute (except Errors)
     ✓ should handle non-string reasons of type Error
     ✓ should handle null and undefined reasons
+    - allows .because to be called as broken.because("reason").then(...) handler
     ✓ should be possible to set the subject
     ✓ should have a verb attribute
     configuration
@@ -120,6 +121,6 @@ Checking behaviour.
       ✓ reacts on specific reason with handler
 
 
-  83 passing (108ms)
-  14 pending
+  83 passing (111ms)
+  15 pending
 

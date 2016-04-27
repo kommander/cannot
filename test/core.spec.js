@@ -220,6 +220,8 @@ describe('Core', () => {
     expect(err.reason).to.be('');
   });
 
+  it('allows .because to be called as broken.because("reason").then(...) handler');
+
   it('should be possible to set the subject', () => {
     const err = cannot('fly', 'away');
     err.subject = 'Alice';
@@ -486,5 +488,12 @@ describe('Core', () => {
   describe('Security', () => {
     it('has to provide facilities to whitelist allowed output');
     it('should distinct between user/dev/admin levels ');
+  });
+
+  //
+  //
+  describe('Tooling', () => {
+    it('allows to check broken coverage');
+    it('mincov so every broken promise has at least one additional resolver');
   });
 });

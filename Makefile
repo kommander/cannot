@@ -16,6 +16,7 @@ usage:
 	@echo '--------------------             : -----------'
 	@echo 'make hooks                       : Creates git hooks to run tests before a push (done by make dev)'
 	@echo 'make setup                       : Install all necessary dependencies'
+	@echo 'make report                      : Opening default browser with coverage report.'
 
 	@echo ''
 
@@ -26,6 +27,9 @@ usage:
 	@echo 'make release-patch               : Increment package version 0.0.1 -> 0.0.2 then release'
 	@echo 'make release-minor               : Increment package version 0.1.0 -> 0.2.0 then release'
 	@echo 'make release-major               : Increment package version 1.0.0 -> 2.0.0 then release'
+	@echo 'make prerelease-alpha            : Increment version 0.5.0 -> 0.5.1-alpha.0 -> 0.5.1-alpha.1 ...'
+	@echo 'make prerelease-beta             : Increment version 0.5.0 -> 0.5.1-beta.0 -> 0.5.1-beta.1 ...'
+	@echo 'make prerelease-rc               : Increment version 0.5.0 -> 0.5.1-rc.0 -> 0.5.1-rc.1 ...'
 	@echo '                                   (should use ´make npm-config´ before)'
 
 	@echo ''
@@ -70,12 +74,14 @@ coveralls:
 	@node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha --report lcovonly -- --recursive -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
 .PHONY: coveralls
 
+# development should happen under production env, but we need some tools
 setup:
 	@echo "Installing Development dependencies."
 	@NODE_ENV=development npm install --only=dev --no-shrinkwrap
 .PHONY: setup
 
 lint:
+	@echo "Linting done."
 	@node ./node_modules/eslint/bin/eslint.js ./**/*.js ./**/**/*.js ./**/*.spec.js
 	@echo "ESLint done."
 .PHONY: lint
@@ -99,9 +105,6 @@ VERSION = $(shell node -pe 'require("./package.json").version')
 release-patch: NEXT_VERSION = $(shell node -pe 'require("semver").inc("$(VERSION)", "patch")')
 release-minor: NEXT_VERSION = $(shell node -pe 'require("semver").inc("$(VERSION)", "minor")')
 release-major: NEXT_VERSION = $(shell node -pe 'require("semver").inc("$(VERSION)", "major")')
-release-alpha: prerelease-alpha
-release-beta: prerelease-beta
-release-rc: prerelease-rc
 prerelease-alpha: NEXT_VERSION = $(shell node -pe 'require("semver").inc("$(VERSION)", "prerelease", "alpha")')
 prerelease-beta: NEXT_VERSION = $(shell node -pe 'require("semver").inc("$(VERSION)", "prerelease", "beta")')
 prerelease-rc: NEXT_VERSION = $(shell node -pe 'require("semver").inc("$(VERSION)", "prerelease", "rc")')

@@ -12,4 +12,3 @@ coverage
 .editorconfig
 .eslintignore
 .eslintrc
-.travis.yml

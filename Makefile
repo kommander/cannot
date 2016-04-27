@@ -42,6 +42,9 @@ test:
 		--reporter spec
 .PHONY: test
 
+travis:
+
+
 report: coverage
 	@echo 'Opening default browser with coverage report.'
 	@open ./coverage/lcov-report/index.html
@@ -119,9 +122,7 @@ release: mincov test specs
 		var s = JSON.stringify(j, null, 2);\
 		require("fs").writeFileSync("./package.json", s);'
 		@NODE_ENV=production npm shrinkwrap
-		@git add npm-shrinkwrap.json
-		@git add specs
-		@git commit package.json npm-shrinkwrap.json -m 'Version $(NEXT_VERSION)'
+		@git commit package.json specs -m 'Version $(NEXT_VERSION)'
 		@git tag -a "v$(NEXT_VERSION)" -m "Version $(NEXT_VERSION)"
 	@git push --tags origin HEAD:master
 	npm publish

@@ -4,4 +4,6 @@ node_js:
   - "5.0.0"
   - "5.4.0"
   - "5.9.0"
+before_script:
+  - npm install --only=dev
 after_success: 'npm run coveralls'

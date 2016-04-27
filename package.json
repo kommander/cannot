@@ -23,7 +23,7 @@
     "sinon": "^1.17.3"
   },
   "scripts": {
-    "test": "make test",
+    "test": "make lint && make test",
     "coveralls": "make coveralls"
   },
   "keywords": [

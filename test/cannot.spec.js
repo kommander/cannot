@@ -108,6 +108,17 @@ describe('Core', () => {
     expect(err).to.have.property('reason', 'string_reason');
   });
 
+  //
+  //
+  it('has hiddens', () => {
+    const err = new cannot(
+      'load',
+      'something'
+    ).because('string reason');
+
+    const keys = Object.keys(err);
+    expect(keys).to.have.property('length', 0);
+  });
 
   //
   //

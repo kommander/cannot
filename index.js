@@ -1,1 +1,1 @@
-module.exports = require('./lib/cannot');
+module.exports = require('./lib/core');

@@ -3,7 +3,7 @@
 /* eslint-disable new-cap */
 const expect = require('expect.js');
 // const sinon = require('sinon');
-const cannot = require('../lib/cannot.js');
+const cannot = require('../');
 
 describe('Extension API', () => {
   it('exposes the use() API', () => {

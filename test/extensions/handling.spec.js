@@ -1,7 +1,7 @@
 /* eslint-disable new-cap */
 const expect = require('expect.js');
 // const sinon = require('sinon');
-const cannot = require('../../lib/cannot.js');
+const cannot = require('../../');
 
 //
 // TODO: Make assert really assert (throw if it fails)

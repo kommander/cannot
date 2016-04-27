@@ -15,7 +15,7 @@
 /* eslint-disable new-cap */
 const expect = require('expect.js');
 // const sinon = require('sinon');
-const cannot = require('../../lib/cannot.js');
+const cannot = require('../../');
 
 describe('Handlor Extension', () => {
   it('provides a convenience method to handle an error (one handler)', (done) => {

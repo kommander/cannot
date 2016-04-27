@@ -5,6 +5,7 @@
 const expect = require('expect.js');
 // const sinon = require('sinon');
 const cannot = require('../lib/cannot.js');
+const semver = require('semver');
 
 //
 // TODO: Make sure .message, .code and .reason is enumerable
@@ -47,11 +48,20 @@ describe('Core', () => {
       'there is nothing to load'
     );
 
-    expect(() => { throw err; }).to.throwException((ex) => {
-      expect(ex).to.have.property('stack');
-      expect(ex.stack.split('\n').length).to.be(11);
-      done();
-    });
+    // Stack growth from v5.9.0 to v5.9.1
+    if (semver.lt(process.version, '5.9.1')) {
+      expect(() => { throw err; }).to.throwException((ex) => {
+        expect(ex).to.have.property('stack');
+        expect(ex.stack.split('\n').length).to.be(11);
+        done();
+      });
+    } else {
+      expect(() => { throw err; }).to.throwException((ex) => {
+        expect(ex).to.have.property('stack');
+        expect(ex.stack.split('\n').length).to.be(12);
+        done();
+      });
+    }
   });
 
   //

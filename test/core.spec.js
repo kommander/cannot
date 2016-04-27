@@ -467,6 +467,24 @@ describe('Core', () => {
 
   //
   //
+  describe('Resolves', () => {
+    it('collects data about unresolved brokens');
+    it('warns or lets tap into a warning when unresolved brokens heighten their frequency');
+  });
+
+  //
+  //
+  describe('Critical', () => {
+    it('lets a broken upgrade from a handle to an alert');
+
+    //
+    // require('alert-extension-for-broken')
+    // broken.alert(broken => ...); // Triggered whenever a broken is upgraded to a critical
+    it('provides facilities to handle alerts application wide (extension)');
+  });
+
+  //
+  //
   describe('Serialize', () => {
     //
     //

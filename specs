@@ -1,4 +1,4 @@
-Checking behaviour.
+Checking behaviour for version 2.3.0.
 
 
   Core
@@ -129,7 +129,10 @@ Checking behaviour.
       ✓ convenience methods to handle an error can be stacked
       ✓ reacts on specific reason with handler
 
+  Tooling
+    - has a pre-commit hook to check if the specs changed and update them for the commit
 
-  83 passing (97ms)
-  21 pending
+
+  83 passing (106ms)
+  22 pending
 

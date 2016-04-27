@@ -1,3 +1,5 @@
+VERSION = $(shell node -pe 'require("./package.json").version')
+
 usage:
 	@echo ''
 
@@ -37,7 +39,7 @@ usage:
 help: usage
 
 test:
-	@echo 'Checking behaviour.'
+	@echo 'Checking behaviour for version '$(VERSION)'.'
 	@./node_modules/.bin/mocha $(TEST_FOLDERS) \
 		--require should \
 		--require "./dev/test.inject.js" \
@@ -101,7 +103,6 @@ clean:
 
 dev: clean setup hooks lint test coverage
 
-VERSION = $(shell node -pe 'require("./package.json").version')
 release-patch: NEXT_VERSION = $(shell node -pe 'require("semver").inc("$(VERSION)", "patch")')
 release-minor: NEXT_VERSION = $(shell node -pe 'require("semver").inc("$(VERSION)", "minor")')
 release-major: NEXT_VERSION = $(shell node -pe 'require("semver").inc("$(VERSION)", "major")')

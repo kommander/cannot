@@ -133,6 +133,10 @@ describe('Core', () => {
 
   //
   //
+  it('returns correct valueOf');
+
+  //
+  //
   it('Should work with promises', (done) => {
     const promiseFn = () => new Promise((resolve, reject) => {
       reject(cannot('do', 'something'));
@@ -173,19 +177,6 @@ describe('Core', () => {
     expect(() => {
       cannot('load', null);
     }).to.throwException();
-  });
-
-  //
-  //
-  it('should be configurable', () => {
-    cannot.config({
-      prefix: 'could not',
-    });
-    const err = cannot('do', 'something');
-    expect(err).to.have.property('code', 'could_not_do_something');
-
-    // Reset to default
-    cannot.config({ prefix: 'cannot' });
   });
 
   //
@@ -241,6 +232,31 @@ describe('Core', () => {
   it('should have a verb attribute', () => {
     const err = cannot('load', 'user');
     expect(err.verb).to.be('load');
+  });
+
+  //
+  //
+  describe('configuration', () => {
+    //
+    //
+    it('should be configurable', () => {
+      cannot.config({
+        prefix: 'could not',
+      });
+      const err = cannot('do', 'something');
+      expect(err).to.have.property('code', 'could_not_do_something');
+
+      // Reset to default
+      cannot.config({ prefix: 'cannot' });
+    });
+
+    //
+    //
+    it('exposes immutable config');
+
+    //
+    //
+    it('keeps track of config changes');
   });
 
   //
@@ -450,6 +466,17 @@ describe('Core', () => {
   //
   //
   describe('Serialize', () => {
+    //
+    //
+    it('exposes and instance identifier (.id)');
+
+    //
+    //
+    // A unique hash that identiefies the error with a source/location and info,
+    // so it can be traced back nicely
+    it('exposes a readable hash for comparison '
+      + '(.token == hash("loaduser_databasefailed_addinfo_core_45")');
+
     it('should provide a json format wrapper');
     it('should provide a binary format wrapper');
   });

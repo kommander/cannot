@@ -8,6 +8,8 @@ Checking behaviour.
     ✓ Should allow construction without the "new" keyword
     ✓ Should work without a reason
     ✓ should get and set a string reason
+    ✓ behaves like a stringified Error
+    ✓ has hiddens
     ✓ Should work with promises
     - provides `return cannot.promise('to load', 'user').because({{ reason }});`
     - adding resolvers: .catch(cannot => cannot.promise('to load', 'user').then(...)
@@ -112,6 +114,6 @@ Checking behaviour.
       ✓ reacts on specific reason with handler
 
 
-  81 passing (106ms)
+  83 passing (112ms)
   9 pending
 

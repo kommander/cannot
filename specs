@@ -47,6 +47,12 @@ Checking behaviour.
       ✓ should add info to the message if given
     stacked info attributes
       ✓ should add info to the message if given
+    Resolves
+      - collects data about unresolved brokens
+      - warns or lets tap into a warning when unresolved brokens heighten their frequency
+    Critical
+      - lets a broken upgrade from a handle to an alert
+      - provides facilities to handle alerts application wide (extension)
     Serialize
       - exposes and instance identifier (.id)
       - exposes a readable hash for comparison (.token == hash("loaduser_databasefailed_addinfo_core_45")
@@ -55,6 +61,9 @@ Checking behaviour.
     Security
       - has to provide facilities to whitelist allowed output
       - should distinct between user/dev/admin levels 
+    Tooling
+      - allows to check broken coverage
+      - mincov so every broken promise has at least one additional resolver
 
   Extension API
     ✓ exposes the use() API
@@ -121,6 +130,6 @@ Checking behaviour.
       ✓ reacts on specific reason with handler
 
 
-  83 passing (111ms)
-  15 pending
+  83 passing (97ms)
+  21 pending
 

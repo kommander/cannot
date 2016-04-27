@@ -90,7 +90,6 @@ clean:
 	@echo "Housekeeping..."
 	rm -rf ./node_modules
 	rm -rf ./coverage
-	git checkout -f
 	@echo "Clean."
 .PHONY: clean
 

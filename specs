@@ -10,12 +10,12 @@ Checking behaviour.
     ✓ should get and set a string reason
     ✓ behaves like a stringified Error
     ✓ has hiddens
+    - returns correct valueOf
     ✓ Should work with promises
     - provides `return cannot.promise('to load', 'user').because({{ reason }});`
     - adding resolvers: .catch(cannot => cannot.promise('to load', 'user').then(...)
     ✓ should throw an Error if no verb is given
     ✓ should throw an Error if no object is given
-    ✓ should be configurable
     ✓ should work without prefix
     ✓ should handle non-string reasons
     ✓ should NOT handle non-string reasons without _code_ attribute (except Errors)
@@ -23,6 +23,10 @@ Checking behaviour.
     ✓ should handle null and undefined reasons
     ✓ should be possible to set the subject
     ✓ should have a verb attribute
+    configuration
+      ✓ should be configurable
+      - exposes immutable config
+      - keeps track of config changes
     codify
       ✓ handles false input
     #message
@@ -43,6 +47,8 @@ Checking behaviour.
     stacked info attributes
       ✓ should add info to the message if given
     Serialize
+      - exposes and instance identifier (.id)
+      - exposes a readable hash for comparison (.token == hash("loaduser_databasefailed_addinfo_core_45")
       - should provide a json format wrapper
       - should provide a binary format wrapper
     Security
@@ -114,6 +120,6 @@ Checking behaviour.
       ✓ reacts on specific reason with handler
 
 
-  83 passing (112ms)
-  9 pending
+  83 passing (108ms)
+  14 pending
 

@@ -4,7 +4,7 @@ _A broken promise resolver._
 
 Aiding in creating consistently human readable messages without compromising machine processing ability. _Cannot_ extends the base _Error_, can be thrown and behaves just like expected. With a sweet syntax.
 
-[![Build Status](https://travis-ci.org/kommander/cannot.js.png)](https://travis-ci.org/kommander/cannot.js) [![Coverage Status](https://coveralls.io/repos/github/kommander/cannot.js/badge.svg?branch=master)](https://coveralls.io/github/kommander/cannot.js?branch=master)
+[![Build Status](https://travis-ci.org/kommander/cannot.png)](https://travis-ci.org/kommander/cannot) [![Coverage Status](https://coveralls.io/repos/github/kommander/cannot.js/badge.svg?branch=master)](https://coveralls.io/github/kommander/cannot.js?branch=master)
 
 **Install**   
 ```

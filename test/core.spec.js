@@ -137,6 +137,10 @@ describe('Core', () => {
 
   //
   //
+  it('works correctly with process.emitWarning(warning[, name][, ctor])');
+
+  //
+  //
   it('Should work with promises', (done) => {
     const promiseFn = () => new Promise((resolve, reject) => {
       reject(cannot('do', 'something'));

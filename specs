@@ -11,6 +11,7 @@ Checking behaviour for version 2.3.0.
     ✓ behaves like a stringified Error
     ✓ has hiddens
     - returns correct valueOf
+    - works correctly with process.emitWarning(warning[, name][, ctor])
     ✓ Should work with promises
     - provides `return cannot.promise('to load', 'user').because({{ reason }});`
     - adding resolvers: .catch(cannot => cannot.promise('to load', 'user').then(...)
@@ -69,6 +70,7 @@ Checking behaviour for version 2.3.0.
     ✓ exposes the use() API
     ✓ exposes the extend() API
     ✓ exposes the hook() API
+    - exposes extend/hook only through use()
     use()
       ✓ calls the extension method with Cannot
       ✓ does not add an extension again
@@ -133,6 +135,6 @@ Checking behaviour for version 2.3.0.
     - has a pre-commit hook to check if the specs changed and update them for the commit
 
 
-  83 passing (106ms)
-  22 pending
+  83 passing (115ms)
+  24 pending
 

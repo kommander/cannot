@@ -25,7 +25,7 @@ describe('Core', () => {
 
   //
   //
-  it('Should create an exception from arguments', () => {
+  it('creates an exception from arguments', () => {
     const err = new cannot(
       'load',
       'something',
@@ -41,7 +41,7 @@ describe('Core', () => {
 
   //
   //
-  it('Should have a stack trace', (done) => {
+  it('has a stack trace', (done) => {
     const err = new cannot(
       'load',
       'something',
@@ -66,7 +66,7 @@ describe('Core', () => {
 
   //
   //
-  it('Should allow construction without the "new" keyword', () => {
+  it('allows construction without the "new" keyword', () => {
     const err = cannot(
       'load',
       'something',
@@ -82,7 +82,7 @@ describe('Core', () => {
 
   //
   //
-  it('Should work without a reason', () => {
+  it('works without a reason', () => {
     const err = cannot(
       'load',
       'something'
@@ -99,7 +99,7 @@ describe('Core', () => {
 
   //
   //
-  it('should get and set a string reason', () => {
+  it('gets and sets a string reason', () => {
     const err = new cannot(
       'load',
       'something'
@@ -141,7 +141,7 @@ describe('Core', () => {
 
   //
   //
-  it('Should work with promises', (done) => {
+  it('works with promises', (done) => {
     const promiseFn = () => new Promise((resolve, reject) => {
       reject(cannot('do', 'something'));
     });
@@ -169,7 +169,7 @@ describe('Core', () => {
 
   //
   //
-  it('should throw an Error if no verb is given', () => {
+  it('throws an Error if no verb is given', () => {
     expect(() => {
       cannot(null, 'user');
     }).to.throwException();
@@ -177,7 +177,7 @@ describe('Core', () => {
 
   //
   //
-  it('should throw an Error if no object is given', () => {
+  it('throws an Error if no object is given', () => {
     expect(() => {
       cannot('load', null);
     }).to.throwException();
@@ -185,7 +185,7 @@ describe('Core', () => {
 
   //
   //
-  it('should work without prefix', () => {
+  it('works without prefix', () => {
     cannot.config({
       prefix: '',
     });
@@ -196,13 +196,13 @@ describe('Core', () => {
     cannot.config({ prefix: 'cannot' });
   });
 
-  it('should handle non-string reasons', () => {
+  it('handles non-string reasons', () => {
     const err = cannot('do', 'something');
     err.reason = { code: 'something_else' };
     expect(err.reason).to.be('something_else');
   });
 
-  it('should NOT handle non-string reasons without _code_ attribute (except Errors)', () => {
+  it('throws for non-string reasons without _code_ attribute (except Errors)', () => {
     const err = cannot('do', 'something');
     const cause = { none: 'something_else' };
 
@@ -211,14 +211,14 @@ describe('Core', () => {
     }).to.throwException();
   });
 
-  it('should handle non-string reasons of type Error', () => {
+  it('handles non-string reasons of type Error', () => {
     const err = cannot('do', 'something');
     const cause = new Error('What the heck');
     err.reason = cause;
     expect(err.reason).to.be('error_what_the_heck');
   });
 
-  it('should handle null and undefined reasons', () => {
+  it('handles null and undefined reasons', () => {
     const err = cannot('do', 'something').because(null);
 
     expect(err.reason).to.be('');
@@ -226,7 +226,7 @@ describe('Core', () => {
 
   it('allows .because to be called as broken.because("reason").then(...) handler');
 
-  it('should be possible to set the subject', () => {
+  it('is possible to set the subject', () => {
     const err = cannot('fly', 'away');
     err.subject = 'Alice';
     expect(err.subject).to.be('Alice');
@@ -235,7 +235,7 @@ describe('Core', () => {
 
   //
   //
-  it('should have a verb attribute', () => {
+  it('has a verb attribute', () => {
     const err = cannot('load', 'user');
     expect(err.verb).to.be('load');
   });
@@ -245,7 +245,7 @@ describe('Core', () => {
   describe('configuration', () => {
     //
     //
-    it('should be configurable', () => {
+    it('is configurable', () => {
       cannot.config({
         prefix: 'could not',
       });
@@ -281,7 +281,7 @@ describe('Core', () => {
   describe('#message', () => {
     //
     //
-    it('Should return a formulated error message', () => {
+    it('returns a formulated error message', () => {
       const err = cannot(
         'load',
         'something',
@@ -297,7 +297,7 @@ describe('Core', () => {
 
     //
     //
-    it('Should include reason into the message', () => {
+    it('includes a reason into the message', () => {
       const err = cannot(
         'load',
         'something',
@@ -318,7 +318,7 @@ describe('Core', () => {
 
     //
     //
-    it('Should handle stacked exceptions', () => {
+    it('handles stacked exceptions', () => {
       const err = cannot(
         'load',
         'something',
@@ -343,7 +343,7 @@ describe('Core', () => {
 
     //
     //
-    it('Should handle stacked exceptions (using because helper)', () => {
+    it('handles stacked exceptions (using because helper)', () => {
       const err = cannot(
         'load',
         'something'
@@ -368,11 +368,11 @@ describe('Core', () => {
 
     //
     //
-    it('should always add " (No reason)." to the message if none was given"');
+    it('always adds " (No reason)." to the message if none was given"');
 
     //
     //
-    // it('Dev Mode: should add " (No reason, {{ sarcasm }})." to the message if none was given"');
+    // it('Dev Mode: adds " (No reason, {{ sarcasm }})." to the message if none was given"');
   });
 
 
@@ -381,7 +381,7 @@ describe('Core', () => {
   describe('because chain', () => {
     //
     //
-    it('should add a reason to the exception', () => {
+    it('adds a reason to the exception', () => {
       const err = cannot('fly into', 'the sky').because('she is out of mushrooms');
 
       expect(err).to.have.property('reason', 'she_is_out_of_mushrooms');
@@ -389,7 +389,7 @@ describe('Core', () => {
 
     //
     // TODO: Allow adding multiple reasons 'because X and Y and Z'
-    it('should throw an error when setting the reason twice', () => {
+    it('throws an error when setting the reason twice', () => {
       const err = cannot('fly into', 'the sky').because('she is out of mushrooms');
 
       expect(() => {
@@ -405,7 +405,7 @@ describe('Core', () => {
   describe('data attributes', () => {
     //
     //
-    it('should add data to the exception', () => {
+    it('adds data to the exception', () => {
       const err = cannot('fly into', 'the sky').addData({
         key: 'value',
       });
@@ -417,7 +417,7 @@ describe('Core', () => {
 
     //
     //
-    it('data should return null if none was given', () => {
+    it('returns null if no data was given', () => {
       const err = cannot('fly into', 'the sky');
 
       expect(err).to.have.property('data');
@@ -442,7 +442,7 @@ describe('Core', () => {
   describe('info attributes', () => {
     //
     //
-    it('should add info to the message if given', () => {
+    it('adds info to the message if given', () => {
       const err = cannot('fly into', 'the sky').info('additional stuff');
 
       expect(err).to.have.property('_infoStr');
@@ -457,7 +457,7 @@ describe('Core', () => {
   describe('stacked info attributes', () => {
     //
     //
-    it('should add info to the message if given', () => {
+    it('adds info to the message if given', () => {
       const err1 = cannot('overcome', 'gravity');
       const err = cannot('fly into', 'the sky').info('additional stuff').because(err1);
 
@@ -471,20 +471,22 @@ describe('Core', () => {
 
   //
   //
-  describe('Resolves', () => {
-    it('collects data about unresolved brokens');
-    it('warns or lets tap into a warning when unresolved brokens heighten their frequency');
+  describe('Recovery', () => {
+    it('collects data about unrecovered brokens');
+    it('warns or lets tap into a warning when unrecovered brokens heighten their frequency');
   });
 
   //
   //
-  describe('Critical', () => {
+  describe('Weighting', () => {
     it('lets a broken upgrade from a handle to an alert');
 
     //
     // require('alert-extension-for-broken')
     // broken.alert(broken => ...); // Triggered whenever a broken is upgraded to a critical
     it('provides facilities to handle alerts application wide (extension)');
+    it('has a weight that is derived from the data & info supplied + stacked errors');
+    it('allows to tap into weight calculation');
   });
 
   //
@@ -492,7 +494,7 @@ describe('Core', () => {
   describe('Serialize', () => {
     //
     //
-    it('exposes and instance identifier (.id)');
+    it('exposes an instance identifier (.id)');
 
     //
     //
@@ -501,15 +503,15 @@ describe('Core', () => {
     it('exposes a readable hash for comparison '
       + '(.token == hash("loaduser_databasefailed_addinfo_core_45")');
 
-    it('should provide a json format wrapper');
-    it('should provide a binary format wrapper');
+    it('provides a json format wrapper');
+    it('provides a binary format wrapper');
   });
 
   //
   //
   describe('Security', () => {
     it('has to provide facilities to whitelist allowed output');
-    it('should distinct between user/dev/admin levels ');
+    it('distincts between user/dev/admin levels ');
   });
 
   //

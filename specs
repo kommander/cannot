@@ -3,65 +3,67 @@ Checking behaviour for version 2.3.0.
 
   Core
     ✓ exposes isError
-    ✓ Should create an exception from arguments
-    ✓ Should have a stack trace
-    ✓ Should allow construction without the "new" keyword
-    ✓ Should work without a reason
-    ✓ should get and set a string reason
+    ✓ creates an exception from arguments
+    ✓ has a stack trace
+    ✓ allows construction without the "new" keyword
+    ✓ works without a reason
+    ✓ gets and sets a string reason
     ✓ behaves like a stringified Error
     ✓ has hiddens
     - returns correct valueOf
     - works correctly with process.emitWarning(warning[, name][, ctor])
-    ✓ Should work with promises
+    ✓ works with promises
     - provides `return cannot.promise('to load', 'user').because({{ reason }});`
     - adding resolvers: .catch(cannot => cannot.promise('to load', 'user').then(...)
-    ✓ should throw an Error if no verb is given
-    ✓ should throw an Error if no object is given
-    ✓ should work without prefix
-    ✓ should handle non-string reasons
-    ✓ should NOT handle non-string reasons without _code_ attribute (except Errors)
-    ✓ should handle non-string reasons of type Error
-    ✓ should handle null and undefined reasons
+    ✓ throws an Error if no verb is given
+    ✓ throws an Error if no object is given
+    ✓ works without prefix
+    ✓ handles non-string reasons
+    ✓ throws for non-string reasons without _code_ attribute (except Errors)
+    ✓ handles non-string reasons of type Error
+    ✓ handles null and undefined reasons
     - allows .because to be called as broken.because("reason").then(...) handler
-    ✓ should be possible to set the subject
-    ✓ should have a verb attribute
+    ✓ is possible to set the subject
+    ✓ has a verb attribute
     configuration
-      ✓ should be configurable
+      ✓ is configurable
       - exposes immutable config
       - keeps track of config changes
     codify
       ✓ handles false input
     #message
-      ✓ Should return a formulated error message
-      ✓ Should include reason into the message
-      ✓ Should handle stacked exceptions
-      ✓ Should handle stacked exceptions (using because helper)
-      - should always add " (No reason)." to the message if none was given"
+      ✓ returns a formulated error message
+      ✓ includes a reason into the message
+      ✓ handles stacked exceptions
+      ✓ handles stacked exceptions (using because helper)
+      - always adds " (No reason)." to the message if none was given"
     because chain
-      ✓ should add a reason to the exception
-      ✓ should throw an error when setting the reason twice
+      ✓ adds a reason to the exception
+      ✓ throws an error when setting the reason twice
     data attributes
-      ✓ should add data to the exception
-      ✓ data should return null if none was given
+      ✓ adds data to the exception
+      ✓ returns null if no data was given
       ✓ does not overwrite with empty data
     info attributes
-      ✓ should add info to the message if given
+      ✓ adds info to the message if given
     stacked info attributes
-      ✓ should add info to the message if given
-    Resolves
-      - collects data about unresolved brokens
-      - warns or lets tap into a warning when unresolved brokens heighten their frequency
-    Critical
+      ✓ adds info to the message if given
+    Recovery
+      - collects data about unrecovered brokens
+      - warns or lets tap into a warning when unrecovered brokens heighten their frequency
+    Weighting
       - lets a broken upgrade from a handle to an alert
       - provides facilities to handle alerts application wide (extension)
+      - has a weight that is derived from the data & info supplied + stacked errors
+      - allows to tap into weight calculation
     Serialize
-      - exposes and instance identifier (.id)
+      - exposes an instance identifier (.id)
       - exposes a readable hash for comparison (.token == hash("loaduser_databasefailed_addinfo_core_45")
-      - should provide a json format wrapper
-      - should provide a binary format wrapper
+      - provides a json format wrapper
+      - provides a binary format wrapper
     Security
       - has to provide facilities to whitelist allowed output
-      - should distinct between user/dev/admin levels 
+      - distincts between user/dev/admin levels 
     Tooling
       - allows to check broken coverage
       - mincov so every broken promise has at least one additional resolver
@@ -135,6 +137,6 @@ Checking behaviour for version 2.3.0.
     - has a pre-commit hook to check if the specs changed and update them for the commit
 
 
-  83 passing (115ms)
-  24 pending
+  83 passing (106ms)
+  26 pending
 

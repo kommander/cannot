@@ -12,7 +12,7 @@ $ npm install cannot
 ```
 
 **Core**  
-An error can be created from calling `cannot(verb, object)` as a function which will return a `Cannot` instance. A `Cannot` instance can also be `thrown` like a generic `Error`.
+An error can be expressed by calling `cannot(verb, object)` as a function which will return a `Broken` instance. A `Broken` instance can also be `thrown` like a generic `Error`.
 ```js  
 throw cannot('attend', 'the party').because('I fell into a rabbit hole');  
 // err.message   -> {String} "I could not attend the party, because I fell into a rabbit hole."  
@@ -47,12 +47,19 @@ throw Cannot('load', 'user').because('the database failed');
 ```
 
 ## Semantics
-`Cannot.js` follows a very simple syntax. It makes you think about what really went wrong and helps you to _avoid inconsistent error codes_.
+`Cannot` follows a very simple syntax. It helps you to reason about what really went wrong by _avoiding inconsistent error codes_, to allow the implementation of recovery strategies.
 
-`Subject` cannot `perform verb/action` on `object`, because `it had a reason`.
+```js
+// Tell me what the problem is...
+throw I.cannot('do', 'my work')
+  .because(TheDatabase.cannot('find', 'what I was looking for')
+    .because('something is broken'));
+```
 
-The generated message aims to be as user friendly as possible, without you having to write it manually. All error specific data which you need to handle it elsewhere in your application, is derived from your simple declaration.  
-The `because` api helps you to specify a reason, which allows you to pass on error objects as well.
+`Subject` cannot `perform verb/action` on `object/data`, because `it had a reason`.
+
+The generated message aims to be as user friendly as possible, without spoiling risky information. All error specific data which you need to handle it elsewhere in your application, is derived from your simple declaration.  
+The `because` api helps you to specify a reason, which allows you to stack error instances like a `Broken` as well.
 
 ## API
 TODO: Table of contents
@@ -60,7 +67,7 @@ TODO: Table of contents
 TODO
 
 #### Stacking Errors
-`Cannot` instances can be stacked onto each other by handing them over as a reason to the next error.
+`Broken` instances can be stacked onto each other by handing them over as a reason to the next error.
 
 ```javascript
 var err1 = Cannot('do', 'what I should do');
@@ -91,8 +98,8 @@ TODO
 Throwing errors without a reason doesn't make sense, does it? So  the majority of errors have a reason which is known, like "because the database had a hiccup" or "the network was down". _Cannot_ errors support _reasons_ to make handling them easier than reacting to a single error code of "user_loading_failed" or "connection_failure". _Cannot_ errors gently remind you that there always is a reason for an error, by adding "(No reason)" to the error message, if no reason is given.
 
 
-## Enforcing Error Handling
-Errors should be handled and never ever be silently dropped. Most errors can be recovered from, which makes the overall user experience better and the application more stable as it becomes self sufficient. This approach supports a _Self Healing Architecture_, in which the application can _reason_ about what happened and react accordingly.
+## Recovery
+`Brokens` should be handled and never ever be silently dropped. Most errors can be recovered from, which makes the overall user experience better and the application more stable as it becomes self sufficient. This approach supports a _Self Healing Architecture_, in which the application can _reason_ about what happened and choose a recovery strategy.
 
 
 ### Code Editor Snippets

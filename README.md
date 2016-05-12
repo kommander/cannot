@@ -115,6 +115,12 @@ $ make dev
 
 Installs the initial dev dependencies, sets up git hooks and checks linting to be able run mincov before you push. Happy hacking!
 
+## Make
+For all make targets see:
+```
+$ make help
+```
+
 ## Tests
 We are handling errors, not producing them. That said, it is unavoidable to run into issues, but a _100%_ test coverage helps making sure the demons don't return.
 [Mocha](http://mochajs.org) is the test runner in use,

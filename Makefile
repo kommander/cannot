@@ -124,7 +124,6 @@ release: mincov test specs
 		j.version = "$(NEXT_VERSION)";\
 		var s = JSON.stringify(j, null, 2);\
 		require("fs").writeFileSync("./package.json", s);'
-		@NODE_ENV=production npm shrinkwrap
 		@git commit package.json specs -m 'Version $(NEXT_VERSION)'
 		@git tag -a "v$(NEXT_VERSION)" -m "Version $(NEXT_VERSION)"
 	@git push --tags origin HEAD:master

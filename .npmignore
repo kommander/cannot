@@ -12,3 +12,4 @@ coverage
 .editorconfig
 .eslintignore
 .eslintrc
+npm-shrinkwrap.json

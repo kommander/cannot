@@ -1,7 +1,7 @@
 {
   "name": "cannot",
   "description": "Simple error handling, aiding in creating consistently human readable messages without compromising machine processing ability.",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "author": "Sebastian Herrlinger <sebastian@kosmokommando.com>",
   "license": "MIT",
   "repository": {
@@ -13,6 +13,7 @@
     "coveralls": "^2.11.9",
     "eslint": "^2.7.0",
     "eslint-config-airbnb": "^7.0.0",
+    "eslint-plugin-jsx-a11y": "https://registry.npmjs.org/eslint-plugin-jsx-a11y/-/eslint-plugin-jsx-a11y-0.6.2.tgz",
     "eslint-plugin-react": "^4.3.0",
     "expect.js": "^0.3.1",
     "istanbul": "^1.0.0-alpha.2",

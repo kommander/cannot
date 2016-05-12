@@ -137,6 +137,6 @@ Checking behaviour for version 2.3.0.
     - has a pre-commit hook to check if the specs changed and update them for the commit
 
 
-  83 passing (106ms)
+  83 passing (102ms)
   26 pending
 

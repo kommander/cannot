@@ -48,17 +48,26 @@ describe('Core', () => {
       'there is nothing to load'
     );
 
-    // Stack growth from v5.9.0 to v5.9.1
     if (semver.lt(process.version, '5.9.1')) {
+      // Node stack growth from v5.9.0 to v5.9.1
+      // at tryOnImmediate (timers.js:543:15)
       expect(() => { throw err; }).to.throwException((ex) => {
         expect(ex).to.have.property('stack');
         expect(ex.stack.split('\n').length).to.be(11);
         done();
       });
-    } else {
+    } else if (semver.lt(process.version, '6.3.0')) {
+      // Node stack growth from v6.2.2 to v6.3.0
+      // at runCallback (timers.js:570:20)
       expect(() => { throw err; }).to.throwException((ex) => {
         expect(ex).to.have.property('stack');
         expect(ex.stack.split('\n').length).to.be(12);
+        done();
+      });
+    } else {
+      expect(() => { throw err; }).to.throwException((ex) => {
+        expect(ex).to.have.property('stack');
+        expect(ex.stack.split('\n').length).to.be(13);
         done();
       });
     }
@@ -443,13 +452,15 @@ describe('Core', () => {
     //
     //
     it('adds info to the message if given', () => {
-      const err = cannot('fly into', 'the sky').info('additional stuff');
+      const err = cannot('fly into', 'the sky').addInfo('additional stuff');
 
       expect(err).to.have.property('_infoStr');
       expect(err._infoStr).to.be.a('string');
       expect(err._infoStr).to.be('additional stuff');
       expect(err.message).to.be('I could not fly into the sky. (No reason) (additional stuff)');
     });
+
+    it('allows to concat info with rest arguments');
   });
 
   //
@@ -459,13 +470,38 @@ describe('Core', () => {
     //
     it('adds info to the message if given', () => {
       const err1 = cannot('overcome', 'gravity');
-      const err = cannot('fly into', 'the sky').info('additional stuff').because(err1);
+      const err = cannot('fly into', 'the sky').addInfo('additional stuff').because(err1);
 
       expect(err).to.have.property('_infoStr');
       expect(err._infoStr).to.be.a('string');
       expect(err._infoStr).to.be('additional stuff');
       // eslint-disable-next-line
-      expect(err.message).to.be('I could not fly into the sky (additional stuff), because I could not overcome gravity. (No reason)');
+      expect(err.message).to.be('I could not fly into the sky, because I could not overcome gravity. (No reason) (additional stuff)');
+    });
+
+    //
+    //
+    it('adds info to the message if given (no reason)', () => {
+      const err = cannot('fly into', 'the sky').addInfo('additional stuff');
+
+      expect(err).to.have.property('_infoStr');
+      expect(err._infoStr).to.be.a('string');
+      expect(err._infoStr).to.be('additional stuff');
+      // eslint-disable-next-line
+      expect(err.message).to.be('I could not fly into the sky. (No reason) (additional stuff)');
+    });
+
+    //
+    //
+    it('adds info to the message if given (all reason)', () => {
+      const err1 = cannot('overcome', 'gravity').because('I need rocket fuel');
+      const err = cannot('fly into', 'the sky').addInfo('additional stuff').because(err1);
+
+      expect(err).to.have.property('_infoStr');
+      expect(err._infoStr).to.be.a('string');
+      expect(err._infoStr).to.be('additional stuff');
+      // eslint-disable-next-line
+      expect(err.message).to.be('I could not fly into the sky, because I could not overcome gravity, because I need rocket fuel. (additional stuff)');
     });
   });
 

@@ -165,6 +165,21 @@ describe('Core', () => {
     });
   });
 
+  it('can be thrown within promises', (done) => {
+    Promise.resolve()
+      .then(() => {
+        try {
+          throw new Error('daeum');
+        } catch (ex) {
+          throw cannot('do', 'stuff').because(ex);
+        }
+      })
+      .catch((err) => {
+        expect(err).to.have.property('reason', 'error_daeum');
+        done();
+      });
+  });
+
   //
   //
   it("provides `return cannot.promise('to load', 'user').because({{ reason }});`");
@@ -206,24 +221,12 @@ describe('Core', () => {
   });
 
   it('handles non-string reasons', () => {
-    const err = cannot('do', 'something');
-    err.reason = { code: 'something_else' };
+    const err = cannot('do', 'something').because({ code: 'something_else' });
     expect(err.reason).to.be('something_else');
   });
 
-  it('throws for non-string reasons without _code_ attribute (except Errors)', () => {
-    const err = cannot('do', 'something');
-    const cause = { none: 'something_else' };
-
-    expect(() => {
-      err.reason = cause;
-    }).to.throwException();
-  });
-
   it('handles non-string reasons of type Error', () => {
-    const err = cannot('do', 'something');
-    const cause = new Error('What the heck');
-    err.reason = cause;
+    const err = cannot('do', 'something').because(new Error('What the heck'));
     expect(err.reason).to.be('error_what_the_heck');
   });
 
@@ -378,10 +381,6 @@ describe('Core', () => {
     //
     //
     it('always adds " (No reason)." to the message if none was given"');
-
-    //
-    //
-    // it('Dev Mode: adds " (No reason, {{ sarcasm }})." to the message if none was given"');
   });
 
 
@@ -397,15 +396,30 @@ describe('Core', () => {
     });
 
     //
-    // TODO: Allow adding multiple reasons 'because X and Y and Z'
-    it('throws an error when setting the reason twice', () => {
-      const err = cannot('fly into', 'the sky').because('she is out of mushrooms');
+    //
+    it('adds a thrown reason to the exception', () => {
+      try {
+        throw new Error('daeum!');
+      } catch (ex) {
+        const err = cannot('fly into', 'the sky')
+          .because(ex);
+        expect(err).to.have.property('reason', 'error_daeum');
+      }
+    });
 
-      expect(() => {
-        err.because('she has enough mushrooms');
-      }).to.throwException((ex) => {
-        expect(ex).to.have.property('code', 'cannot_overwrite_reason');
-      });
+    //
+    //
+    it('can rethrow with a thrown reason', () => {
+      try {
+        throw new Error('daeum!');
+      } catch (ex) {
+        try {
+          throw cannot('fly into', 'the sky')
+            .because(ex);
+        } catch (ex2) {
+          expect(ex2).to.have.property('reason', 'error_daeum');
+        }
+      }
     });
   });
 
@@ -503,57 +517,5 @@ describe('Core', () => {
       // eslint-disable-next-line
       expect(err.message).to.be('I could not fly into the sky, because I could not overcome gravity, because I need rocket fuel. (additional stuff)');
     });
-  });
-
-  //
-  //
-  describe('Recovery', () => {
-    it('collects data about unrecovered brokens');
-    it('warns or lets tap into a warning when unrecovered brokens heighten their frequency');
-  });
-
-  //
-  //
-  describe('Weighting', () => {
-    it('lets a broken upgrade from a handle to an alert');
-
-    //
-    // require('alert-extension-for-broken')
-    // broken.alert(broken => ...); // Triggered whenever a broken is upgraded to a critical
-    it('provides facilities to handle alerts application wide (extension)');
-    it('has a weight that is derived from the data & info supplied + stacked errors');
-    it('allows to tap into weight calculation');
-  });
-
-  //
-  //
-  describe('Serialize', () => {
-    //
-    //
-    it('exposes an instance identifier (.id)');
-
-    //
-    //
-    // A unique hash that identiefies the error with a source/location and info,
-    // so it can be traced back nicely
-    it('exposes a readable hash for comparison '
-      + '(.token == hash("loaduser_databasefailed_addinfo_core_45")');
-
-    it('provides a json format wrapper');
-    it('provides a binary format wrapper');
-  });
-
-  //
-  //
-  describe('Security', () => {
-    it('has to provide facilities to whitelist allowed output');
-    it('distincts between user/dev/admin levels ');
-  });
-
-  //
-  //
-  describe('Tooling', () => {
-    it('allows to check broken coverage');
-    it('mincov so every broken promise has at least one additional resolver');
   });
 });

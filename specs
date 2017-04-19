@@ -1,4 +1,4 @@
-Checking behaviour for version 2.4.0.
+Checking behaviour for version 2.4.1.
 
 
   Core
@@ -13,13 +13,13 @@ Checking behaviour for version 2.4.0.
     - returns correct valueOf
     - works correctly with process.emitWarning(warning[, name][, ctor])
     ✓ works with promises
+    ✓ can be thrown within promises
     - provides `return cannot.promise('to load', 'user').because({{ reason }});`
     - adding resolvers: .catch(cannot => cannot.promise('to load', 'user').then(...)
     ✓ throws an Error if no verb is given
     ✓ throws an Error if no object is given
     ✓ works without prefix
     ✓ handles non-string reasons
-    ✓ throws for non-string reasons without _code_ attribute (except Errors)
     ✓ handles non-string reasons of type Error
     ✓ handles null and undefined reasons
     - allows .because to be called as broken.because("reason").then(...) handler
@@ -39,7 +39,8 @@ Checking behaviour for version 2.4.0.
       - always adds " (No reason)." to the message if none was given"
     because chain
       ✓ adds a reason to the exception
-      ✓ throws an error when setting the reason twice
+      ✓ adds a thrown reason to the exception
+      ✓ can rethrow with a thrown reason
     data attributes
       ✓ adds data to the exception
       ✓ returns null if no data was given
@@ -51,25 +52,6 @@ Checking behaviour for version 2.4.0.
       ✓ adds info to the message if given
       ✓ adds info to the message if given (no reason)
       ✓ adds info to the message if given (all reason)
-    Recovery
-      - collects data about unrecovered brokens
-      - warns or lets tap into a warning when unrecovered brokens heighten their frequency
-    Weighting
-      - lets a broken upgrade from a handle to an alert
-      - provides facilities to handle alerts application wide (extension)
-      - has a weight that is derived from the data & info supplied + stacked errors
-      - allows to tap into weight calculation
-    Serialize
-      - exposes an instance identifier (.id)
-      - exposes a readable hash for comparison (.token == hash("loaduser_databasefailed_addinfo_core_45")
-      - provides a json format wrapper
-      - provides a binary format wrapper
-    Security
-      - has to provide facilities to whitelist allowed output
-      - distincts between user/dev/admin levels 
-    Tooling
-      - allows to check broken coverage
-      - mincov so every broken promise has at least one additional resolver
 
   Extension API
     ✓ exposes the use() API
@@ -94,49 +76,7 @@ Checking behaviour for version 2.4.0.
       ✓ throws for existing hooks
       ✓ throws for non-existing unhook name
 
-  Handling/Assert Extension
-    ✓ provides a convenience checker (verb/object)
-    ✓ provides a convenience checker (multiword verb/object)
-    ✓ provides a convenience checker (error code)
-    ✓ provides a convenience checker (verb / object, assert.cannot, because)
-    ✓ provides a convenience checker (verb/object, is.cannot, because)
-    ✓ assert is bound correctly to this.is
-    ✓ allows to recover from a specific reason (error code, assert.cannot)
-    ✓ recovers from a specific reason (error code, assert.cannot, other err object)
-    ✓ allows to recover from a specific reason (error code, is.cannot)
-    ✓ allows to recover from a specific reason (error code, is.cannot, false cannot)
-    ✓ provides a convenience checker (verb/object, is.cannot)
-    ✓ provides a convenience checker (verb/object, true())
-    ✓ provides a convenience checker (verb/object, false())
-    ✓ provides a convenience checker (verb/object, weak comparison)
-    ✓ provides a convenience checker (verb/object, if clause)
-    - provides a convenience checker (verb/object, weak comparison, if clause)
-    ✓ provides a convenience checker (verb/object, weak comparison, reverse)
-    - provides a convenience checker (verb/object, hard comparison)
-    ✓ provides a convenience checker (verb/object, hard comparison, !!)
-    ✓ provides a convenience checker (verb/object, hard comparison, !)
-    ✓ provides a convenience checker (verb/object, false, revert)
-    ✓ allows to recover from a specific reason (verb/object, because.cannot)
-    ✓ allows to recover from a specific reason (verb/object, assert.cannot)
-    ✓ recovers from a specific reason (verb/object, because.cannot, false cannot)
-    ✓ checks case insensitive
 
-  Handlor Extension
-    ✓ provides a convenience method to handle an error (one handler)
-    ✓ provides the handlor interface swell
-    ✓ handles an error (one handler, reason)
-    ✓ handles an error (one handler, reason, multiword)
-    ✓ handles an error (one handler, reason, stacked error)
-    ✓ provides reason as first, full error instance as second argument
-    ✓ handles an error (one handler, reason, obj)
-    ✓ handles an error (one handler, obj, obj)
-    with interface
-      ✓ hands down the reason first, second the error
-      ✓ calls in error context
-      ✓ convenience methods to handle an error can be stacked
-      ✓ reacts on specific reason with handler
-
-
-  85 passing (149ms)
-  26 pending
+  51 passing (118ms)
+  10 pending
 

@@ -1,4 +1,4 @@
-Checking behaviour for version 2.3.1.
+Checking behaviour for version 2.4.0.
 
 
   Core
@@ -137,6 +137,6 @@ Checking behaviour for version 2.3.1.
       ✓ reacts on specific reason with handler
 
 
-  85 passing (150ms)
+  85 passing (149ms)
   26 pending
 

@@ -1,4 +1,4 @@
-Checking behaviour for version 2.4.1.
+Checking behaviour for version 2.4.2.
 
 
   Core
@@ -77,6 +77,6 @@ Checking behaviour for version 2.4.1.
       ✓ throws for non-existing unhook name
 
 
-  51 passing (118ms)
+  51 passing (101ms)
   10 pending
 

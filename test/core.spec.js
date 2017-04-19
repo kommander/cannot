@@ -322,10 +322,9 @@ describe('Core', () => {
       expect(err).to.be.an('object');
       expect(err).to.have.property('code', 'cannot_load_something');
       expect(err).to.have.property('object', 'something');
-      const messageTest = err.message.match(
-        /.*[\s]{1}could not load something, because fakeParent\./ig
+      expect(err.message).to.match(
+        /.*[\s]{1}could not load something, because went wrong, omg!\./ig
       );
-      expect(messageTest).to.be.ok();
     });
 
     //
@@ -347,9 +346,10 @@ describe('Core', () => {
       expect(err).to.be.an('object');
       expect(err).to.have.property('code', 'cannot_load_something');
       expect(err).to.have.property('object', 'something');
-      // eslint-disable-next-line
-      const messageTest = err.message.match(/.*[\s]{1}could not load something, because .*[\s]{1}could not connect to internet, because ground_zero\./ig);
-      expect(messageTest).to.be.ok();
+      expect(err.message).to.match(
+        // eslint-disable-next-line
+        /.*[\s]{1}could not load something, because .*[\s]{1}could not connect to internet, because went wrong, omg!\./ig
+      );
     });
 
 
@@ -373,9 +373,10 @@ describe('Core', () => {
       expect(err).to.be.an('object');
       expect(err).to.have.property('code', 'cannot_load_something');
       expect(err).to.have.property('object', 'something');
-      // eslint-disable-next-line
-      const messageTest = err.message.match(/.*[\s]{1}could not load something, because .*[\s]{1}could not connect to internet, because ground_zero\./ig);
-      expect(messageTest).to.be.ok();
+      expect(err.message).to.match(
+        // eslint-disable-next-line
+        /.*[\s]{1}could not load something, because .*[\s]{1}could not connect to internet, because went wrong, omg!\./ig
+      );
     });
 
     //
